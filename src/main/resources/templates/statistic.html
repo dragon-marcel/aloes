@@ -6,7 +6,6 @@
 <header th:replace="layout/Layout :: header"/>
 
 <!--CONTAINER-->
-
 <div class="container pt-5">
 
     <div class="card bg-light">
@@ -15,7 +14,6 @@
         </div>
         <div class="card-body">
             <ul class="list-group my-2">
-
                 <li class="list-group-item" th:text="${'Open visits: ' + quantityVisitsOpen}"></li>
                 <li class="list-group-item" th:text="${'Close visits: ' + quantityVisitsClose}"></li>
                 <li class="list-group-item" th:text="${'All visits: ' + quantityVisits}"></li>
@@ -23,23 +21,19 @@
                 <li class="list-group-item" th:text="${'All users:' + quantityUser}"></li>
                 <li class="list-group-item" th:text="${'Total value: ' + quantityTotalValue + ' zł'}"></li>
                 <li class="list-group-item" th:text="${'Close visit value: ' + quantityCloseValue + ' zł'}"></li>
-
-
-
             </ul>
-
         </div>
     </div>
+
     <div class="card bg-light">
         <div class="card-header">
-
         </div>
         <div class="card-body">
 
     </div>
 
 </div>
-<br><br>
-<footer th:replace="layout/Layout :: footer"/>
+    <!--FOOTER-->
+    <footer th:replace="layout/Layout :: footer"/>
 </body>
 </html>

@@ -15,6 +15,7 @@ public class Visit implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
+
 @NotEmpty
 private String description;
 
@@ -118,6 +119,5 @@ private boolean status;
             total +=items.get(a).countPrice();
         }return total;
     }
-    public static final long serialVersionUID=1L;
 }
 

@@ -8,6 +8,7 @@ public class Massage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotEmpty
     private String name;
     private Double price;
@@ -37,5 +38,4 @@ public class Massage implements Serializable {
         this.price = price;
     }
 
-    public static final long serialVersionUID=1L;
 }

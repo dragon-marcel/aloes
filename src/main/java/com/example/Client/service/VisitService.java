@@ -18,6 +18,7 @@ public class VisitService implements IVisitService {
 
     @Autowired
     private TimeDate timeDate;
+
     @PersistenceContext
     private EntityManager em;
 

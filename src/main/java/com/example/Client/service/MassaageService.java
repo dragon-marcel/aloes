@@ -11,6 +11,7 @@ import java.util.List;
 public class MassaageService implements IMassageService {
     @Autowired
     IMassageDao iMassageDao;
+
     @Override
     public List<Massage> getAllMassage() {
         List<Massage>listMassage = (List<Massage>) iMassageDao.findAll();

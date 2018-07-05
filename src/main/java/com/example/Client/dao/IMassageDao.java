@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IMassageDao extends CrudRepository<Massage,Long> {
     @Query(value = "select m from Massage m where m.name like %?1%")
-    public List<Massage>findMassageByName(String term);
+    List<Massage>findMassageByName(String term);
 
 }

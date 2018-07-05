@@ -1,22 +1,15 @@
 package com.example.Client.service;
 
-import com.example.Client.entity.ItemVisit;
-import com.example.Client.entity.Massage;
 import com.example.Client.entity.Visit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
 public class StatisticService {
+
   @Autowired
-    private IVisitService iVisitService;
-  @PersistenceContext
-  private EntityManager em;
+  private IVisitService iVisitService;
 
   public Double getTotalValue(){
       List<Visit>listAllVisits = iVisitService.allVisitList();

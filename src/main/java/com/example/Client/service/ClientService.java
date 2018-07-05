@@ -7,14 +7,10 @@ import com.example.Client.dao.ClientDAO;
 import com.example.Client.entity.Massage;
 import com.example.Client.entity.Visit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,17 +25,11 @@ public class ClientService implements IClientService{
     private EntityManager em;
 
 
-    public long countRow(){
-        long rows =clientDAO.count();
-        return rows;
-    }
-
     @Transactional
     public List<Client> findAll() {
 
         return em.createQuery("from Client").getResultList();
     }
-
 
     @Transactional
     @Override
@@ -51,14 +41,14 @@ public class ClientService implements IClientService{
         }}
 
     @Override
-@Transactional
+    @Transactional
     public Client findOne(Long id) {
         Client client = em.find(Client.class ,id);
         return client;
     }
 
     @Override
-@Transactional
+    @Transactional
     public void delate(Long id) {
         em.remove(findOne(id));
     }

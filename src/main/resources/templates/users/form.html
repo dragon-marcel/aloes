@@ -6,7 +6,6 @@
 <header th:replace="layout/Layout :: header"/>
 
 <!--CONTAINER-->
-
 <div class="container pt-5">
     <div class="card bg-light">
         <div class="card-header">
@@ -15,36 +14,32 @@
         <div class="card-body">
 
             <form th:action="@{/users/form}" th:object="${newUser}"  method="post"  class="form-group">
+
                 <div class="form-group row">
                     <label>Name:</label>
                     <input th:type="text" class="form-control" th:field="*{userName}" th:errorclass="alert-danger">
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"/>
-
-
                 </div>
+
                 <div class="form-group row">
                     <label>Password:</label>
                     <input th:type="password" class="form-control" th:field="*{password}" th:errorclass="alert-danger">
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
-
                 </div>
+
                 <div class="form-group row">
                 <label>Role:  </label>
-
-
                     <input type="radio" th:text="'ADMIN'" th:field="*{role}" th:value="ADMIN">
                     <input type="radio" th:text="'USER'" th:field="*{role}" th:value="USER" ><br>
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"/>
-
                 </div>
 
                 <input th:type="submit" th:value="Create" class="btn btn-secondary">
-
             </form>
         </div>
     </div>
 </div>
-<br><br>
+
 <footer th:replace="layout/Layout :: footer"/>
 </body>
 </html>

@@ -13,13 +13,14 @@ import java.util.Date;
 @Component
 @Scope(value ="session",proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class TimeSession {
+    
     @DateTimeFormat(pattern = "hh-mm-ss")
     @Temporal(TemporalType.TIME)
     public Date time= new Date();
 
     public String getTime() {
-       String timeformat = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(time);
-        return timeformat;
+       String timeFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM).format(time);
+        return timeFormat;
     }
 
     public void setTime(Date time) {

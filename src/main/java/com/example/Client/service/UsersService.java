@@ -11,11 +11,13 @@ import java.util.List;
 
 @Service
 public class UsersService implements IUsersService {
+
 @Autowired
 private IUsers iUsers;
 
 @Autowired
-  private  BCryptPasswordEncoder bCryptPasswordEncoder;
+private  BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public List<User> findAll() {
         return (List<User>) iUsers.findAll();
@@ -34,12 +36,5 @@ private IUsers iUsers;
 
         iUsers.save(user);
     }
-
-
-    @Override
-    public User finduserbyId(Long id) {
-       return iUsers.findById(id).orElse(null);
-    }
-
 
 }

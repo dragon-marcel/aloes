@@ -22,8 +22,9 @@ import java.util.List;
 public class ClientController {
     @Autowired
     IClientService clientService;
+
     @RequestMapping(value = "/list")
-    public String listClient(@RequestParam(name = "search",required = false)String search,
+    public String listClient(@RequestParam(name = "search", required = false)String search,
                              Model model){
         List<Client> client = clientService.findAll();
         model.addAttribute("title","List clients");

@@ -13,18 +13,19 @@ public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotEmpty
     private String userName;
+
     @NotEmpty
     private String password;
+
     @NotEmpty(message = "You must Check role.")
     private String role;
     private boolean enabled;
 
     public User() {
         this.enabled = true;
-
-
     }
 
     public long getId() {
