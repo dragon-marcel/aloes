@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script type="text/javascript" th:fragment="javascript">
+    $(document).ready(function () {
+        $("#search-massage").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/visit/load-massage/" + request.term,
+                    dataType: "json",
+                    data: {
+                        term: request.term
+                    },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                value: item.id,
+                                label: item.name,
+                                price:item.price,
+
+                            };
+                        }));
+                    },
+
+                });
+            },
+            select : function (event,ui) {
+
+                if(itemPrice.haveMassage(ui.item.value)){
+                    itemPrice.icrementQuantity(ui.item.value,ui.item.price);
+
+                    return false;
+                }
+                var linea =  $("#visitItemss").html();
+                linea = linea.replace(/{ID}/g, ui.item.value);
+                linea = linea.replace(/{NAME}/g, ui.item.label);
+                linea = linea.replace(/{PRICE}/g, ui.item.price);
+
+                $("#ItemsVisit tbody").append(linea);
+                itemPrice.calculatorPrice(ui.item.value,ui.item.price,1);
+                return false;
+            }
+        });
+        $("form").submit(function (){
+            $("#visitItemss").remove();
+            return
+
+                                   });
+
+
+    });
+    var itemPrice = {
+        calculatorPrice:function (id,price,quantity) {
+            $("#total_itemPrice_"+id).html(parseInt(price)* parseInt(quantity));
+            this.calculatorTotal();
+        },
+        haveMassage: function (id) {
+
+            var  result;
+
+            $('input[name="item_id[]"]').each(function () {
+                if (parseInt(id) == parseInt($(this).val())){
+
+                   result = true;
+                }else {
+                    result =false;
+                }
+                
+            });
+            return result;
+
+
+        },
+        icrementQuantity:function (id,price) {
+            var quantity = $("#quantity_"+id).val() ? parseInt($("#quantity_"+id).val()):0;
+            $("#quantity_"+id).val(++quantity);
+            this.calculatorPrice(id,price,quantity);
+
+        },
+        delateItem:function (id) {
+            $('#row_'+id).remove();
+            this.calculatorTotal();
+
+
+        },
+        calculatorTotal:function () {
+            var totalPrice=0;
+            $('span[id^="total_itemPrice_"]').each(function () {
+                totalPrice += parseInt($(this).html());
+            });
+            $('#totalPrice').html(totalPrice);
+        }
+    }
+</script>
+
+</body>
+</html>

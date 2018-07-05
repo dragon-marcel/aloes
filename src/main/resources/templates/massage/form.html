@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+
+<div class="container pt-5">
+    <div class="card bg-success text-white">
+        <div class="card-header">
+          <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+
+            <form th:action="@{/massage/form}" th:object="${newMassage}"  method="post"  class="form-group">
+                <div class="form-group row">
+                    <input th:type="hidden" th:field="*{id}"/>
+
+                    <label>Name:</label>
+                    <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
+                    <small class="text-form text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+
+
+                </div>
+                <div class="form-group row">
+                    <label>Price:</label>
+                    <input th:type="text" class="form-control" th:field="*{price}" th:errorclass="alert-danger">
+                    <small class="text-form text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+
+                </div>
+                <input th:type="submit" th:value="Create" class="btn btn-secondary">
+
+            </form>
+        </div>
+    </div>
+</div>
+<br><br>
+<footer th:replace="layout/Layout :: footer"/>
+</body>
+</html>

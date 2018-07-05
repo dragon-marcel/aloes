@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
+    <title th:text="${title}"> </title>
+</head>
+<body>
+<!--HEADER-->
+<header th:fragment="header">
+<nav class="navbar navbar-expand-lg navbar-dark  bg-success">
+    <a class="navbar-brand" href="/">ALOES - GABINET ODNOWY</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Client
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" th:href="@{/list}">All Clients</a>
+                    <a class="dropdown-item" th:href="@{/form}">New client</a>
+                    <div class="dropdown-divider"></div>
+
+                </div>
+
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Visit
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" th:href="@{/visit/list}">All visits</a>
+                    <a class="dropdown-item" th:href="@{/visit/close}">Close visits</a>
+                    <a class="dropdown-item" th:href="@{/visit/open}">Open visits</a>
+                    <div class="dropdown-divider"></div>
+
+                </div>
+
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Massage
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" th:href="@{/massage/list}">All massage</a>
+                    <a class="dropdown-item" th:href="@{/massage/form}">New massage</a>
+                    <div class="dropdown-divider"></div>
+
+                </div>
+
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    User
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/users}">All users</a>
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" th:href="@{/users/form}">New user</a>
+
+                </div>
+
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/statistic}">Statistic <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Session:
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" th:href="@{/user}">User</a>
+
+                </div>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+
+        </ul>
+        <div class="float-right">Logged user: <span sec:authentication="name" class="mr-2"></span></div>
+        <form th:action="@{/logout}" method="post">
+            <input th:type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure logout??');" th:value="'logout'"/>
+        </form>
+    </div>
+</nav>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">ALOES GABINET ODNOWY</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
+</header>
+
+<!--INFO-->
+<div th:fragment="info">
+<div class="alert alert-success"  th:if="${success != null}" th:text="${success}"/>
+<div class="alert alert-danger"  th:if="${danger != null}" th:text="${danger}"/>
+<div class="alert alert-info"  th:if="${info != null}" th:text="${info}"/>
+</div>
+<!--FOOTER-->
+<footer th:fragment="footer" class="container">
+    <div class="row">
+        <div class="col-sm-8 bg-light">
+            Marcel Dragon Shop<br>
+            Piekary Slaskie<br>
+            ul.Gen.Jerzego Ziętka 6/2<br>
+        </div>
+        <div class="col-sm-4 bg-light">
+        <img th:src="@{/image/shop.png}"   width="100" height="100"/>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+
+</footer>
+</body>
+</html>

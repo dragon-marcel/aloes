@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+<div class="container pt-5">
+</div>
+<div class="container pt-5">
+    <div class="card bg-light">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+            <div th:replace="layout/Layout :: info"/>
+
+            <table class="table sticky-top">
+                <thead class="bg-success">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Date</th>
+                    <th>New visit</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${clientDetails.id}"></td>
+                    <td th:text="${clientDetails.name}"></td>
+                    <td th:text="${clientDetails.surname}"></td>
+                    <td th:text="${clientDetails.email}"></td>
+                    <td th:text="${clientDetails.number}"></td>
+                    <td th:text="${clientDetails.createDate}"></td>
+                    <td><a th:href="@{/visit/form/} + ${clientDetails.id}" class="btn btn-success">ADD</a></td>
+                </tr>
+
+            </table>
+
+            <div class="alert alert-info" th:if="${#lists.isEmpty(clientDetails.visit) }"
+                 th:text="${clientDetails.name} +' '+ ${clientDetails.surname} +' no vist'"></div>
+
+            <table th:if="${not #lists.isEmpty(clientDetails.visit)}" class="table table-hover sticky-top">
+                <thead class="bg-success">
+                <th>id</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Total Price</th>
+                <th>Data</th>
+                <th>Time</th>
+                <th>Details</th>
+                <th>Delate</th>
+                </thead>
+
+                <tbody th:each="visits:${clientDetails.visit}">
+                <tr>
+                    <td th:text="${visits.id}"></td>
+                    <th th:text="${visits.description}"></th>
+                    <td th:text="${visits.createDate}"></td>
+                    <td th:text="${visits.totalPrice}"></td>
+                    <td th:text="${visits.visitDate}"></td>
+                    <td th:text="${visits.visitTime}"></td>
+                    <td><a th:href="@{/visit/visitDetails/} + ${visits.id}" class="btn btn-info">View</a></td>
+                    <td><a th:href="@{/visit/delate/} + ${visits.id}" class="btn btn-danger"
+                           onclick="return confirm('Are you sure delate ??');">X</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br>
+<footer th:replace="layout/Layout :: footer"/>
+
+</body>
+</html>

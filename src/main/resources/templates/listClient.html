@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+           <label th:text="${title}"/>
+                <form class="form-inline my-2 my-lg-0 float-right">
+                    <input class="form-control mr-sm-2" th:name="search"  type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+      <div class="card-body">
+
+          <div th:replace="layout/Layout :: info"/>
+
+<table class="table table-hover sticky-top">
+    <thead class="navbar-dark  bg-success">
+    <tr>
+        <th>lp</th><th>ID</th><th>Name</th><th>Surname</th><th>Email</th><th>Edit</th><th>Details</th><th>Delate</th>
+    </tr>
+    </thead>
+    <tbody th:each="clientlist,lp:${list}">
+<tr>
+    <td th:text="${lp.count}">1</td>
+
+    <td th:text="${clientlist.id}"></td>
+    <td th:text="${clientlist.name}"></td>
+    <td th:text="${clientlist.surname}"></td>
+    <td th:text="${clientlist.email}"></td>
+
+    <td style="width:20px"><a th:href="@{form/} + ${clientlist.id}" class="btn btn-success">Edit</a></td>
+    <td style="width:20px"><a th:href="@{client/} + ${clientlist.id}" class="btn btn-info">Details</a> </td>
+    <td style="width:20px"><a th:href="@{client/delate/} + ${clientlist.id}" onclick="return confirm('Are sure delate??')" class="btn btn-danger">Delate</a>    </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<br><br>
+<!--FOOTER-->
+<footer th:replace="layout/Layout :: footer"/>
+</body>
+</html>

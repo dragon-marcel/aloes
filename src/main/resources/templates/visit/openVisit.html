@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+
+
+
+            <table class="table table-hover sticky-top">
+                <thead class="navbar-dark  bg-success">
+                <tr>
+                    <th>lp</th><th>Id</th><th>Client</th><th>Data created</th><th>Description</th>
+                    <th>Data visit</th><th>Time visit</th><th>Total price<th>Status</th><th>Details</th>
+                </tr>
+                </thead>
+                <tbody th:each="listvisit,lp:${openVisit}">
+                <tr>
+                    <td th:text="${lp.count}">1</td>
+
+                    <td th:text="${listvisit.id}"></td>
+                    <td><a th:href="@{/client/} + ${listvisit.client.id}" th:text="${listvisit.client.name} + ' ' +${listvisit.client.surname}"/></td>
+                    <td th:text="${listvisit.createDate}"></td>
+                    <td th:text="${listvisit.description}"></td>
+                    <td th:text="${listvisit.visitDate}"></td>
+                    <td th:text="${listvisit.visitTime}"></td>
+                    <td th:text="${listvisit.totalPrice}"></td>
+                    <td><img th:if="${listvisit.status == false}" style="width:20px" th:src="@{/image/xx.png}"/>
+                        <img th:if="${listvisit.status == true}" style="width:20px" th:src="@{/image/okk.png}"/></td>
+                    <td style="width:20px"><a th:href="@{/visit/visitDetails/} + ${listvisit.id}" class="btn btn-info">Details</a> </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <br><br>
+    <!--FOOTER-->
+    <footer th:replace="layout/Layout :: footer"/>
+</body>
+</html>

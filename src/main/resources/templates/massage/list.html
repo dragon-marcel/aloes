@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+
+            <div th:replace="layout/Layout :: info"/>
+            <table class="table table-hover sticky-top">
+                <thead class="navbar-dark  bg-success">
+                <tr>
+                    <th>lp</th><th>ID</th><th>Name</th><th>Price</th><th>Edit</th><th>Details</th><th>Delate</th>
+                </tr>
+                </thead>
+                <tbody th:each="listMassage,lp:${listMassage}">
+                <tr>
+                    <td th:text="${lp.count}">1</td>
+
+                    <td th:text="${listMassage.id}"></td>
+                    <td th:text="${listMassage.name}"></td>
+                    <td th:text="${listMassage.price}"></td>
+                    <td style="width:20px"><a th:href="@{/massage/form/} + ${listMassage.id}" class="btn btn-success">Edit</a></td>
+                    <td style="width:20px"><a th:href="@{/massage/details/} + ${listMassage.id}" class="btn btn-info">Details</a> </td>
+                    <td style="width:20px"><a th:href="@{/massage/delate/} + ${listMassage.id}" onclick="return confirm('Are sure delate??')" class="btn btn-danger">Delate</a>    </td>
+                </tr>
+                </tbody>
+            </table>
+           
+            <br>
+
+        </div>
+
+    </div>
+    <br><br>
+    <!--FOOTER-->
+    <footer th:replace="layout/Layout :: footer"/>
+</body>
+</html>

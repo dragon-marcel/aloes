@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head">
+</head>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header">
+</header>
+
+<!--CONTAINER-->
+
+<div class="container py-4">
+
+    <div class="card bg-danger text-white">
+        <div class="card-header">
+            ERROR "ACCESS DENIED!!"
+        </div>
+        <div class="card-body">
+            <a th:href="@{/}" class="btn btn-outline-light" role="button">Go to Start Page!</a>
+
+        </div>
+    </div>
+</div>
+<br><br>
+<footer th:replace="layout/Layout :: footer">
+</footer>
+
+</body>
+</html>

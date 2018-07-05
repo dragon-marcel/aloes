@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/Layout :: head"/>
+<body>
+<!--HEADER-->
+<header th:replace="layout/Layout :: header"/>
+
+<!--CONTAINER-->
+
+<div class="container pt-5">
+
+    <div class="card bg-light">
+        <div class="card-header">
+        <h2>Client details :</h2>
+            <a th:href="@{/client/}+${Visit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
+            <a th:href="@{'/visit/visitDetails/' + ${Visit.id}(format = pdf)}" target="_blank" class="btn btn-danger float-right">PDF</a>
+
+        </div>
+        <div class="card-body">
+            <div th:replace="layout/Layout :: info"/>
+            <ul class="list-group my-2">
+
+                <li class="list-group-item" th:text="${'Name & Surname: '+Visit.client.name + ' ' +
+                Visit.client.surname}"></li>
+                <li class="list-group-item" th:text="${'Telephon: ' +Visit.client.number}"></li>
+                <li class="list-group-item" th:text="${'Email: ' +Visit.client.email}"></li>
+                <li class="list-group-item" th:text="${'Date created: ' +Visit.createDate}"></li>
+                <li class="list-group-item" th:text="${'Date visit: ' +Visit.createDate}"></li>
+                <li class="list-group-item" th:text="${'Time visit: ' +Visit.visitTime}"></li>
+
+            </ul>
+            <label th:text="'Status:'"/>
+                <img th:if="${Visit.status == false}" style="width: 20px;padding-left: 10px" th:src="@{/image/xx.png}"/>
+                <img th:if="${Visit.status == true}" style="width:20px;padding-left: 10px" th:src="@{/image/okk.png}"/>
+            <button th:type="button" id="change" style="margin-left: 20px "class="btn btn-danger">Change</button>
+
+
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-header">
+            <h2>Massage items :</h2>
+
+        </div>
+        <div class="card-body">
+            <table  class="table table-hover sticky-top">
+                <thead class="bg-success">
+                <th>Description</th><th>Massage</th><th>Price</th>
+                </thead>
+
+                <tbody th:each="visitsItems:${Visit.items}">
+                <tr>
+                    <th th:text="${visitsItems.massage.name}"></th>
+                    <td th:text="${visitsItems.quantity}"></td>
+                    <td th:text="${visitsItems.countPrice()}"></td>
+
+
+                </tr>
+
+                </tbody>
+            </table>
+            <h5 class="float-right">Total Price: <span th:text="${Visit.getTotalPrice()}" class="badge badge-secondary"/> </h5>
+
+        </div>
+    </div>
+    <a th:href="@{/client/}+${Visit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
+
+</div>
+<br><br>
+<footer th:replace="layout/Layout :: footer"/>
+<!--Modal Change-->
+<div class="myForm">
+    <form th:action="@{/visit/edit/}" th:object="${Visit}" method="post">
+        <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">EDIT PRODUCTS</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <input th:type="hidden" th:field="*{id}" />
+                            <input th:type="hidden" th:field="*{client}"/>
+                            <input th:type="hidden" th:field="*{description}"/>
+                            <input th:type="hidden" th:field="*{createDate}"/>
+                            <input th:type="hidden" th:field="*{visitDate}"/>
+                            <input th:type="hidden" th:field="*{visitTime}"/>
+                            <td th:each="items:${item}">
+                                <input th:type="hidden" th:value="${items.massage.id}" name="massage[]" >
+                                <input th:type="hidden" th:value="${items.quantity}" name="quantity[]" >
+                            </td>
+                            <select th:field="*{status}" class="form-control">
+                                <option th:value="true ">close visit</option>
+                                <option th:value="false">open visit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+    </form>
+</div>
+<script th:src="@{/js/change.js}"></script>
+
+</body>
+</html>
