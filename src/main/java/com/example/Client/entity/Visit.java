@@ -22,6 +22,8 @@ private String description;
 @ManyToOne(fetch = FetchType.LAZY)
 private Client client;
 
+private boolean sendEmail;
+
 @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 @JoinColumn(name = "items_id")
 private List<ItemVisit> items;
@@ -50,6 +52,7 @@ private boolean status;
     public Visit() {
         this.items = new ArrayList<ItemVisit>();
         this.status = false;
+        this.sendEmail = false;
     }
 
     public Long getId() {
@@ -58,6 +61,14 @@ private boolean status;
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(boolean sendEmail) {
+        this.sendEmail = sendEmail;
     }
 
     public List<ItemVisit> getItems() {

@@ -13,6 +13,10 @@
         <div class="card-header">
         <h2>Client details :</h2>
             <a th:href="@{/client/}+${Visit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
+
+            <a th:if="${Visit.sendEmail == false }" th:href="@{'/visit/visitDetails/' + ${Visit.id}+'/sendEmail'}"  class=" ml-2 btn btn-success float-right">SEND MAIL</a>
+            <button th:if="${Visit.sendEmail ==true }" class="ml-2 btn btn-secondary  float-right">SENT</button>
+
             <a th:href="@{'/visit/visitDetails/' + ${Visit.id}(format = pdf)}" target="_blank" class="btn btn-danger float-right">PDF</a>
 
         </div>

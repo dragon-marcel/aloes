@@ -1,5 +1,6 @@
 package com.example.Client.controller;
 
+import com.example.Client.domain.EmailSender;
 import com.example.Client.entity.Client;
 import com.example.Client.entity.ItemVisit;
 import com.example.Client.entity.Massage;
@@ -14,7 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +32,11 @@ public class VisitController {
     private ClientService clientService;
     @Autowired
     private VisitService visitService;
+
+    @Autowired
+    private EmailSender emailSender;
+    @Autowired
+    private TemplateEngine templateEngine;
 
     private final org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
 
@@ -46,6 +55,31 @@ public class VisitController {
         model.addAttribute("item",listItem);
         return "visit/visitDetails";
 
+    }
+    @GetMapping(value ="visitDetails/{idVisit}/sendEmail")
+    public String sendEmail(Model model,RedirectAttributes flash,
+                            @PathVariable("idVisit") Long id){
+       Visit visit = clientService.findVisitById(id);
+
+       Client client = visit.getClient();
+       String  email = client.getEmail();
+       String title = "Aloes-gabinet odnowy reminder about visit " + visit.getDescription()+ "";
+
+        Context context = new Context();
+        context.setVariable("header", "Aloes-gabinet odnowy");
+        context.setVariable("title", "Aloes-gabinet odnowy reminder about visit \"" + visit.getDescription()+ "\"");
+        context.setVariable("description", visit.getItems());
+
+        String body = templateEngine.process("layout/email", context);
+        if (emailSender.sendEmail(email,title,body)){
+            visit.setSendEmail(true);
+            clientService.saveVisit(visit);
+
+        }
+
+        flash.addFlashAttribute("success","Success,email send");
+
+        return "redirect:/visit/visitDetails/"+id;
     }
 
     @GetMapping(value = "/form/{clientId}")
