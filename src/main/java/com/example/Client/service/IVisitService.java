@@ -9,4 +9,5 @@ public interface IVisitService {
      List<Visit>getVisitbyData();
      List<Visit>getVisitClose();
      List<Visit>getVisitOpen();
+     boolean checkifBusyDataandTime(String visitDate,String visitTime);
 }

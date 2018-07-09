@@ -20,6 +20,9 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -113,6 +116,17 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
                             @RequestParam(name="item_id[]",required = false) Long[] ItemId,
                             @RequestParam(name = "quantity[]",required = false) Integer[] quantity)
     {
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
+
+        String visitDate = formatDate.format(visit.getVisitDate());
+        String visitTime = formatTime.format(visit.getVisitTime());
+
+     if (visitService.checkifBusyDataandTime(visitDate,visitTime)== false){
+         flash.addFlashAttribute("danger","Date and time visit it is busy,please chose oder time.");
+         return "redirect:/visit/form/"+ visit.getClient().getId();
+
+     }else {
 
         if (result.hasErrors()) {
             flash.addFlashAttribute("danger","ERROR");
@@ -132,7 +146,7 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
         flash.addFlashAttribute("success","Add new Visit" + " \""+ visit.getDescription()+ "\"");
         sessionStatus.setComplete();
         return "redirect:/client/" + visit.getClient().getId();
-    }
+    }}
     @GetMapping("/delate/{id}")
     public String delateVisit(@PathVariable("id")Long id,
                               RedirectAttributes  flash){

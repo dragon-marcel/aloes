@@ -10,6 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 @Service
 public class VisitService implements IVisitService {
@@ -46,5 +50,17 @@ public class VisitService implements IVisitService {
         return em.createQuery("from Visit where status = false ORDER BY visitDate").getResultList();
 
     }
+    @Override
+    public boolean checkifBusyDataandTime(String visitDate,String visitTime) {
+        List<Visit> listVisit = em.createQuery("from Visit where visitDate ='" + visitDate + "'And" +
+                " visitTime ='" + visitTime + "'").getResultList();
 
+        if (listVisit.size() > 0) {
+           return false;
+
+        }return true;
+
+            }
 }
+
+
