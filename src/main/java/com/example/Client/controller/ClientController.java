@@ -85,7 +85,9 @@ public String clientDetails(@PathVariable("id")Long id,Model model,RedirectAttri
 
 
     @RequestMapping(value = "form",method = RequestMethod.POST)
-    public String saveClient(@Valid @ModelAttribute(value="ClientNew")Client ClientNew, BindingResult result, RedirectAttributes flash, SessionStatus sessionStatus){
+    public String saveClient(@Valid @ModelAttribute(value="ClientNew")Client ClientNew,
+                             BindingResult result, RedirectAttributes flash,
+                             SessionStatus sessionStatus){
 
         if (result.hasErrors()) {
             return "form";

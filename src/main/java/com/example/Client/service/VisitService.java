@@ -51,12 +51,17 @@ public class VisitService implements IVisitService {
 
     }
     @Override
-    public boolean checkifBusyDataandTime(String visitDate,String visitTime) {
-        List<Visit> listVisit = em.createQuery("from Visit where visitDate ='" + visitDate + "'And" +
-                " visitTime ='" + visitTime + "'").getResultList();
+    public boolean checkifBusyDataAndTime(String visitDate,Date visitTime) {
+        List<Visit> listVisit = em.createQuery("from Visit where visitDate ='" + visitDate + "'").getResultList();
 
         if (listVisit.size() > 0) {
-           return false;
+            for (Visit visit :listVisit){
+                if(visit.getVisitTime().getHours() == visitTime.getHours() ){
+                    return false;
+                }else {
+                    return true;
+                }
+            }
 
         }return true;
 

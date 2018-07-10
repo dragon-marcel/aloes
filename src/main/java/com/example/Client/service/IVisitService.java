@@ -2,6 +2,7 @@ package com.example.Client.service;
 
 import com.example.Client.entity.Visit;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IVisitService {
@@ -9,5 +10,5 @@ public interface IVisitService {
      List<Visit>getVisitbyData();
      List<Visit>getVisitClose();
      List<Visit>getVisitOpen();
-     boolean checkifBusyDataandTime(String visitDate,String visitTime);
+     boolean checkifBusyDataAndTime(String visitDate,Date visitTime);
 }

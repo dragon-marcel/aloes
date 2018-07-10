@@ -37,7 +37,7 @@ private Date createDate = new Date();
 private Date visitDate = new Date();
 
 @Temporal(TemporalType.TIME)
-@DateTimeFormat(pattern = "hh:mm")
+@DateTimeFormat(pattern = "kk:mm")
 private Date visitTime = new Date();
 private boolean status;
 

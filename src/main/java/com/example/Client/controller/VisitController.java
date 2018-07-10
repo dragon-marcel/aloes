@@ -97,7 +97,6 @@ public class VisitController {
         }
         Visit visit = new Visit();
         visit.setClient(client);
-        sessionStatus.setComplete();
         model.addAttribute("newVisit", visit);
         model.addAttribute("title", "NEW VISIT");
         return "visit/form";
@@ -109,7 +108,7 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
 }
 
 @PostMapping(value = "/form")
-    public String saveVisit(@Valid Visit visit,
+    public String saveVisit(@Valid @ModelAttribute("newVisit") Visit newVisit,
                             BindingResult result,
                             RedirectAttributes flash,
                             SessionStatus sessionStatus,
@@ -117,20 +116,20 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
                             @RequestParam(name = "quantity[]",required = false) Integer[] quantity)
     {
         DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
+        DateFormat formatTime = new SimpleDateFormat("kk");
 
-        String visitDate = formatDate.format(visit.getVisitDate());
-        String visitTime = formatTime.format(visit.getVisitTime());
-
-     if (visitService.checkifBusyDataandTime(visitDate,visitTime)== false){
-         flash.addFlashAttribute("danger","Date and time visit it is busy,please chose oder time.");
-         return "redirect:/visit/form/"+ visit.getClient().getId();
+        Date visitTime =newVisit.getVisitTime();
+        String visitFormatDate = formatDate.format(newVisit.getVisitDate());
+        String visitFormatTime = formatTime.format(visitTime);
+     if (visitService.checkifBusyDataAndTime(visitFormatDate,visitTime)== false){
+         flash.addFlashAttribute("danger",visitFormatDate + " at hour "+ visitFormatTime + " it'is busy,please chose different time.");
+         return "redirect:/visit/form/"+ newVisit.getClient().getId();
 
      }else {
 
         if (result.hasErrors()) {
             flash.addFlashAttribute("danger","ERROR");
-            return "redirect:/visit/form/"+ visit.getClient().getId();
+            return "redirect:/visit/form/"+ newVisit.getClient().getId();
 
         }
 
@@ -139,13 +138,13 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
             ItemVisit itemVisit = new ItemVisit();
             itemVisit.setMassage(massage);
             itemVisit.setQuantity(quantity[a]);
-            visit.addItems(itemVisit);
+            newVisit.addItems(itemVisit);
             log.info("id"+ ItemId[a].toString() + "quantity:"+ quantity[a].toString());
         }
-        clientService.saveVisit(visit);
-        flash.addFlashAttribute("success","Add new Visit" + " \""+ visit.getDescription()+ "\"");
+        clientService.saveVisit(newVisit);
+        flash.addFlashAttribute("success","Add new Visit" + " \""+ newVisit.getDescription()+ "\"");
         sessionStatus.setComplete();
-        return "redirect:/client/" + visit.getClient().getId();
+        return "redirect:/client/" + newVisit.getClient().getId();
     }}
     @GetMapping("/delate/{id}")
     public String delateVisit(@PathVariable("id")Long id,
