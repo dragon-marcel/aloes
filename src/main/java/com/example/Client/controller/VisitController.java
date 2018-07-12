@@ -69,9 +69,9 @@ public class VisitController {
        String title = "Aloes-gabinet odnowy reminder about visit " + visit.getDescription()+ "";
 
         Context context = new Context();
+        context.setVariable("massageDetails",visit.getItems());
         context.setVariable("header", "Aloes-gabinet odnowy");
-        context.setVariable("title", "Aloes-gabinet odnowy reminder about visit \"" + visit.getDescription()+ "\"");
-        context.setVariable("description", visit.getItems());
+        context.setVariable("description", visit.getDescription());
         context.setVariable("name", visit.getClient().getName() + ' ' + visit.getClient().getSurname());
         context.setVariable("dateVisit", visit.getVisitDate().toString());
         context.setVariable("timeVisit", visit.getVisitTime().toString());

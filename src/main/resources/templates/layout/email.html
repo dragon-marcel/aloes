@@ -18,21 +18,15 @@
                 <td height="50" align="center"><p th:text="${header}">header</p></td>
             </tr>
             <tr bgcolor="ffffff">
-                <td height="100" align="center" ><h1 th:text="${title}">title</h1></td>
-            </tr>
-            <tr bgcolor="ffffff">
-                <td style="padding-left: 20px">
-                <p  align="left"> <h4 th:text="'name: ' + ${name}">name</h4></p>
-                <p  align="left"><h4 th:text="'data vist: '+ ${dateVisit}">data vist</h4></p>
-                <p  align="left"><h4 th:text="'time visit: '+ ${timeVisit}">time visit:</h4></p>
-                </td>
+                <td height="100" align="center" ><h1 th:text="'Welcome '+ ${name}+ '. Aloes Gabinet Odnowy reminder about visit '
+                +${description} + ' on ' + ${dateVisit} + ' at '+ ${timeVisit} + '. See you letter.'">content</h1></td>
             </tr>
         </table>
                 <table width="100%" cellpadding="0" cellspacing="0">
                     <thead style="background:#319132;color: #ffffff">
                         <tr></tr><th>Massage</th><th>Quantity</th><th>Price</th></tr>
                     </thead>
-                    <tbody th:each="list:${description}">
+                    <tbody th:each="list:${massageDetails}">
                         <tr>
                             <td class=" text-align: center" th:text="${list.massage.name}"></td>
                             <td class=" text-align: center" th:text="${list.quantity}"></td>
