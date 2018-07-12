@@ -18,7 +18,14 @@
                 <td height="50" align="center"><p th:text="${header}">header</p></td>
             </tr>
             <tr bgcolor="ffffff">
-                <td height="100" align="center"><h1 th:text="${title}">title</h1></td>
+                <td height="100" align="center" ><h1 th:text="${title}">title</h1></td>
+            </tr>
+            <tr bgcolor="ffffff">
+                <td style="padding-left: 20px">
+                <p  align="left"> <h4 th:text="'name: ' + ${name}">name</h4></p>
+                <p  align="left"><h4 th:text="'data vist: '+ ${dateVisit}">data vist</h4></p>
+                <p  align="left"><h4 th:text="'time visit: '+ ${timeVisit}">time visit:</h4></p>
+                </td>
             </tr>
         </table>
                 <table width="100%" cellpadding="0" cellspacing="0">

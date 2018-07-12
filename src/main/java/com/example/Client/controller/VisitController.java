@@ -72,6 +72,11 @@ public class VisitController {
         context.setVariable("header", "Aloes-gabinet odnowy");
         context.setVariable("title", "Aloes-gabinet odnowy reminder about visit \"" + visit.getDescription()+ "\"");
         context.setVariable("description", visit.getItems());
+        context.setVariable("name", visit.getClient().getName() + ' ' + visit.getClient().getSurname());
+        context.setVariable("dateVisit", visit.getVisitDate().toString());
+        context.setVariable("timeVisit", visit.getVisitTime().toString());
+
+
 
         String body = templateEngine.process("layout/email", context);
         if (emailSender.sendEmail(email,title,body)){

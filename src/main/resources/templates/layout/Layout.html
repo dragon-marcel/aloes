@@ -87,12 +87,11 @@
             </li>
 
         </ul>
-
-        <div class="float-right">Logged user: <span sec:authentication="name" class="mr-2"></span></div>
-        <form th:action="@{/logout}" method="post">
+        <div sec:authorize="isAuthenticated()">
+        <form class="float-right" th:action="@{/logout}" method="post">
             <input th:type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure logout??');" th:value="'logout'"/>
         </form>
-    </div>
+        </div>
 
 </nav>
 <!--JUUMBOTRON-->
