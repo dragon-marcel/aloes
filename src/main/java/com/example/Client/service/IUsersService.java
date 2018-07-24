@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IUsersService {
      List<User> findAll();
-     void delateUserbyId(Long id);
+     void deleteUserbyId(Long id);
      void saveUser(User users);
 
 }

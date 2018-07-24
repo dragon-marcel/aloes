@@ -24,7 +24,7 @@ private  BCryptPasswordEncoder bCryptPasswordEncoder;
     }
 
     @Override
-    public void delateUserbyId(Long id) {
+    public void deleteUserbyId(Long id) {
         iUsers.deleteById(id);
     }
 

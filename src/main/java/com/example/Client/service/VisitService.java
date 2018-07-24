@@ -27,6 +27,22 @@ public class VisitService implements IVisitService {
     private EntityManager em;
 
     @Override
+    public void saveVisit(Visit visit) {
+        iVisitDAO.save(visit);
+    }
+
+    @Override
+    public Visit findVisitById(Long id) {
+        return iVisitDAO.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void deleteVisit(Long id) {
+        iVisitDAO.deleteById(id);
+    }
+
+    @Override
     public List<Visit> allVisitList() {
         return (List<Visit>) iVisitDAO.findAll();
     }

@@ -24,7 +24,7 @@ public class MassaageService implements IMassageService {
     }
 
     @Override
-    public void delateMassage(Long id)  {
+    public void deleteMassage(Long id)  {
         iMassageDao.deleteById(id);
     }
 
@@ -32,4 +32,16 @@ public class MassaageService implements IMassageService {
     public Massage getMassage(Long id) {
         return iMassageDao.findById(id).orElse(null);
     }
+    @Override
+    public List<Massage> findMassageByName(String term) {
+        return iMassageDao.findMassageByName(term);
+    }
+
+
+
+    @Override
+    public Massage findMassageById(Long id) {
+        return iMassageDao.findById(id).orElse(null);
+    }
+
 }

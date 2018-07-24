@@ -76,7 +76,7 @@ public class MassageController {
             return "redirect:/massage/list";
         } else {
             try {
-                iMassageService.delateMassage(id);
+                iMassageService.deleteMassage(id);
 
             } catch (Exception e) {
                 flash.addFlashAttribute("danger", "Error,massage is used");

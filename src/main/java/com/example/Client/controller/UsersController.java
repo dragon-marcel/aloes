@@ -33,7 +33,7 @@ public class UsersController {
 
     @GetMapping(value = "users/delate/{id}")
     public String delateUser(@PathVariable("id") Long id,RedirectAttributes flash){
-        usersService.delateUserbyId(id);
+        usersService.deleteUserbyId(id);
         flash.addFlashAttribute("danger","Delate user");
         return "redirect:/users";
     }

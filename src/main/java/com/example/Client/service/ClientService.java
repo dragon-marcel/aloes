@@ -18,8 +18,6 @@ public class ClientService implements IClientService{
     @Autowired
     private ClientDAO clientDAO;
     @Autowired
-    private IMassageDao massageDao;
-    @Autowired
     private IVisitDAO iVisitDAO;
     @PersistenceContext
     private EntityManager em;
@@ -53,32 +51,6 @@ public class ClientService implements IClientService{
         em.remove(findOne(id));
     }
 
-    @Override
-    public List<Massage> findMassageByName(String term) {
-        return massageDao.findMassageByName(term);
-    }
-
-    @Override
-    public void saveVisit(Visit visit) {
-        iVisitDAO.save(visit);
-    }
-
-
-    @Override
-    public Massage findMassageById(Long id) {
-        return massageDao.findById(id).orElse(null);
-    }
-
-    @Override
-    public Visit findVisitById(Long id) {
-        return iVisitDAO.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional
-    public void deleteVisit(Long id) {
-        iVisitDAO.deleteById(id);
-    }
 
     @Override
     public List<Client> searchClient(String name) {

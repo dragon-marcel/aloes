@@ -6,6 +6,7 @@ import com.example.Client.entity.ItemVisit;
 import com.example.Client.entity.Massage;
 import com.example.Client.entity.Visit;
 import com.example.Client.service.ClientService;
+import com.example.Client.service.IMassageService;
 import com.example.Client.service.VisitService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +41,15 @@ public class VisitController {
     private EmailSender emailSender;
     @Autowired
     private TemplateEngine templateEngine;
+    @Autowired
+    private IMassageService massageService;
 
     private final org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
 
     @GetMapping(value ="visitDetails/{idVisit}")
     public String visitDetails(@PathVariable("idVisit")Long id,
                                Model model,RedirectAttributes flash){
-        Visit visit =clientService.findVisitById(id);
+        Visit visit = visitService.findVisitById(id);
 
         if (visit == null){
             flash.addFlashAttribute("danger","Visit not exist");
@@ -62,7 +65,7 @@ public class VisitController {
     @GetMapping(value ="visitDetails/{idVisit}/sendEmail")
     public String sendEmail(Model model,RedirectAttributes flash,
                             @PathVariable("idVisit") Long id){
-       Visit visit = clientService.findVisitById(id);
+       Visit visit = visitService.findVisitById(id);
 
        Client client = visit.getClient();
        String  email = client.getEmail();
@@ -81,7 +84,7 @@ public class VisitController {
         String body = templateEngine.process("layout/email", context);
         if (emailSender.sendEmail(email,title,body)){
             visit.setSendEmail(true);
-            clientService.saveVisit(visit);
+            visitService.saveVisit(visit);
 
         }
 
@@ -109,7 +112,7 @@ public class VisitController {
 @GetMapping(value = "/load-massage/{term}",produces = {"application/json"})
 
 public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
-        return clientService.findMassageByName( term);
+        return massageService.findMassageByName( term);
 }
 
 @PostMapping(value = "/form")
@@ -139,14 +142,14 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
         }
 
         for(int a = 0; a < ItemId.length; a++){
-        Massage massage = clientService.findMassageById(ItemId[a]);
+        Massage massage = massageService.findMassageById(ItemId[a]);
             ItemVisit itemVisit = new ItemVisit();
             itemVisit.setMassage(massage);
             itemVisit.setQuantity(quantity[a]);
             newVisit.addItems(itemVisit);
             log.info("id"+ ItemId[a].toString() + "quantity:"+ quantity[a].toString());
         }
-        clientService.saveVisit(newVisit);
+         visitService.saveVisit(newVisit);
         flash.addFlashAttribute("success","Add new Visit" + " \""+ newVisit.getDescription()+ "\"");
         sessionStatus.setComplete();
         return "redirect:/client/" + newVisit.getClient().getId();
@@ -154,9 +157,9 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
     @GetMapping("/delate/{id}")
     public String delateVisit(@PathVariable("id")Long id,
                               RedirectAttributes  flash){
-        Visit visit = clientService.findVisitById(id);
+        Visit visit = visitService.findVisitById(id);
         if (visit != null){
-            clientService.deleteVisit(id);
+            visitService.deleteVisit(id);
             flash.addFlashAttribute("success","Delate visit");
             return "redirect:/client/" + visit.getClient().getId();
 
@@ -193,13 +196,13 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
                              RedirectAttributes flash){
 
         for(int a = 0; a < id.length; a++) {
-            Massage massage = clientService.findMassageById(id[a]);
+            Massage massage = massageService.findMassageById(id[a]);
             ItemVisit list = new ItemVisit();
             list.setMassage(massage);
             list.setQuantity(quantity[a]);
             visit.addItems(list);
         }
-        clientService.saveVisit(visit);
+        visitService.saveVisit(visit);
         flash.addFlashAttribute("success","You changed status");
      return "redirect:/visit/visitDetails/"+visit.getId();
     }
