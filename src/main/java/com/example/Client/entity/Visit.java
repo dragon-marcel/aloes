@@ -1,5 +1,6 @@
 package com.example.Client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ private Long id;
 private String description;
 
 @ManyToOne(fetch = FetchType.LAZY)
+@JsonIgnore
 private Client client;
 
 private boolean sendEmail;

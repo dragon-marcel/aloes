@@ -49,7 +49,7 @@ public class ClientService implements IClientService{
 
     @Override
     @Transactional
-    public void delate(Long id) {
+    public void delete(Long id) {
         em.remove(findOne(id));
     }
 
@@ -76,7 +76,7 @@ public class ClientService implements IClientService{
 
     @Override
     @Transactional
-    public void delateVisit(Long id) {
+    public void deleteVisit(Long id) {
         iVisitDAO.deleteById(id);
     }
 

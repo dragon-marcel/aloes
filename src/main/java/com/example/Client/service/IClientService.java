@@ -9,11 +9,11 @@ public interface IClientService {
      List<Client> findAll();
      void save(Client client);
      Client findOne(Long Id);
-     void  delate(Long id);
+     void  delete(Long id);
      List<Massage>findMassageByName(String term);
      void saveVisit(Visit visit);
      Visit findVisitById(Long id);
-     void delateVisit(Long id);
+     void deleteVisit(Long id);
      List<Client> searchClient(String name);
      Massage findMassageById(Long id);
 }

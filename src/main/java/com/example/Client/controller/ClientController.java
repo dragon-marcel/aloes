@@ -78,7 +78,7 @@ public String clientDetails(@PathVariable("id")Long id,Model model,RedirectAttri
             flash.addFlashAttribute("danger","Error delate,Client not exist!");
             return "redirect:/list";
         }
-        clientService.delate(id);
+        clientService.delete(id);
         flash.addFlashAttribute("success","Delate client");
         return "redirect:/list";
     }

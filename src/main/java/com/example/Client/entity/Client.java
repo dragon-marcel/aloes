@@ -1,5 +1,6 @@
 package com.example.Client.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -34,6 +35,7 @@ public class Client implements Serializable {
     private Date createDate =new Date();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Visit> visits;
 
     public Client(){

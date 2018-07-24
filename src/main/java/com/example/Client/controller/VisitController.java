@@ -156,7 +156,7 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
                               RedirectAttributes  flash){
         Visit visit = clientService.findVisitById(id);
         if (visit != null){
-            clientService.delateVisit(id);
+            clientService.deleteVisit(id);
             flash.addFlashAttribute("success","Delate visit");
             return "redirect:/client/" + visit.getClient().getId();
 
