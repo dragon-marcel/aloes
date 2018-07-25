@@ -17,6 +17,14 @@ import java.io.Serializable;
     @JoinColumn(name = "massage_id")
     private Massage massage;
 
+    public ItemVisit() {
+    }
+
+    public ItemVisit(Integer quantity, Massage massage) {
+        this.quantity = quantity;
+        this.massage = massage;
+    }
+
     public Long getId() {
             return id;
         }
