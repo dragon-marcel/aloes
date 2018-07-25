@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 <!--CONTAINER-->
 <div class="container pt-5">
@@ -14,7 +14,7 @@
             <label th:text="${title}"/>
         </div>
         <div class="card-body">
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
 
             <table class="table sticky-top">
                 <thead class="bg-success">
@@ -35,10 +35,15 @@
                     <td th:text="${clientDetails.email}"></td>
                     <td th:text="${clientDetails.number}"></td>
                     <td th:text="${clientDetails.createDate}"></td>
-                    <td><a th:href="@{/visit/form/} + ${clientDetails.id}" class="btn btn-success">ADD</a></td>
+                    <td><a th:href="@{/formVisit/} + ${clientDetails.id}" class="btn btn-success">ADD</a></td>
                 </tr>
 
             </table>
+        </div>
+        <div class="card-header">
+            <label th:text="${visit}"/>
+        </div>
+        <div class="card-body">
 
             <div class="alert alert-info" th:if="${#lists.isEmpty(clientDetails.visit) }"
                  th:text="${clientDetails.name} +' '+ ${clientDetails.surname} +' no vist'"></div>
@@ -52,7 +57,7 @@
                 <th>Data</th>
                 <th>Time</th>
                 <th>Details</th>
-                <th>Delate</th>
+                <th>Delete</th>
                 </thead>
 
                 <tbody th:each="visits:${clientDetails.visit}">
@@ -63,9 +68,9 @@
                     <td th:text="${visits.totalPrice}"></td>
                     <td th:text="${visits.visitDate}"></td>
                     <td th:text="${visits.visitTime}"></td>
-                    <td><a th:href="@{/visit/visitDetails/} + ${visits.id}" class="btn btn-info">View</a></td>
-                    <td><a th:href="@{/visit/delate/} + ${visits.id}" class="btn btn-danger"
-                           onclick="return confirm('Are you sure delate ??');">X</a></td>
+                    <td><a th:href="@{/visit/} + ${visits.id}" class="btn btn-info">View</a></td>
+                    <td><a th:href="@{/visit/delete/} + ${visits.id}" class="btn btn-danger"
+                           onclick="return confirm('Are you sure delete ??');">X</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -73,7 +78,7 @@
     </div>
 </div>
 <br><br>
-<footer th:replace="layout/Layout :: footer"/>
+<footer th:replace="layout/layout :: footer"/>
 
 </body>
 </html>

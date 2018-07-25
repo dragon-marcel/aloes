@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 <!--CONTAINER-->
 <div class="container py-5">
@@ -35,7 +35,7 @@
                     <td th:text="${listvisit.totalPrice}"></td>
                     <td><img th:if="${listvisit.status == false}" style="width:20px" th:src="@{/image/xx.png}"/>
                     <img th:if="${listvisit.status == true}" style="width:20px" th:src="@{/image/okk.png}"/></td>
-                    <td style="width:20px"><a th:href="@{/visit/visitDetails/} + ${listvisit.id}" class="btn btn-info">Details</a> </td>
+                    <td style="width:20px"><a th:href="@{/visit/} + ${listvisit.id}" class="btn btn-info">Details</a> </td>
                 </tr>
                 </tbody>
             </table>
@@ -45,6 +45,6 @@
     </div>
     <br><br>
     <!--FOOTER-->
-    <footer th:replace="layout/Layout :: footer"/>
+    <footer th:replace="layout/layout :: footer"/>
 </body>
 </html>

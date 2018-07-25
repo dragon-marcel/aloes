@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 <!--CONTAINER-->
 <div class="container pt-5">
@@ -13,7 +13,7 @@
             <label th:text="${title}"/>
         </div>
         <div class="card-body">
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
 
             <table class="table sticky-top">
                 <thead class="bg-success">
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-    <footer th:replace="layout/Layout :: footer"/>
-
+    <footer th:replace="layout/layout :: footer"/>
+</div>
 </body>
 </html>

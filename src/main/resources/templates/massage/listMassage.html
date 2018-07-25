@@ -13,12 +13,12 @@
         </div>
         <div class="card-body">
 
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
 
             <table class="table table-hover sticky-top">
                 <thead class="navbar-dark  bg-success">
                 <tr>
-                    <th>lp</th><th>ID</th><th>Name</th><th>Price</th><th>Edit</th><th>Details</th><th>Delate</th>
+                    <th>lp</th><th>ID</th><th>Name</th><th>Price</th><th>Edit</th><th>Details</th><th>Delete</th>
                 </tr>
                 </thead>
                 <tbody th:each="listMassage,lp:${listMassage}">
@@ -28,9 +28,9 @@
                     <td th:text="${listMassage.id}"></td>
                     <td th:text="${listMassage.name}"></td>
                     <td th:text="${listMassage.price}"></td>
-                    <td style="width:20px"><a th:href="@{/massage/form/} + ${listMassage.id}" class="btn btn-success">Edit</a></td>
-                    <td style="width:20px"><a th:href="@{/massage/details/} + ${listMassage.id}" class="btn btn-info">Details</a> </td>
-                    <td style="width:20px"><a th:href="@{/massage/delate/} + ${listMassage.id}" onclick="return confirm('Are sure delate??')" class="btn btn-danger">Delate</a>    </td>
+                    <td style="width:20px"><a th:href="@{/formMassage/} + ${listMassage.id}" class="btn btn-success">Edit</a></td>
+                    <td style="width:20px"><a th:href="@{/massage/} + ${listMassage.id}" class="btn btn-info">Details</a> </td>
+                    <td style="width:20px"><a th:href="@{/massage/delete/} + ${listMassage.id}" onclick="return confirm('Are sure delete??')" class="btn btn-danger">Delete</a>    </td>
                 </tr>
                 </tbody>
             </table>
@@ -38,6 +38,6 @@
     </div>
 
     <!--FOOTER-->
-    <footer th:replace="layout/Layout :: footer"/>
+    <footer th:replace="layout/layout :: footer"/>
 </body>
 </html>

@@ -1,19 +1,23 @@
 package com.example.Client.service;
 
+import com.example.Client.entity.ItemVisit;
 import com.example.Client.entity.Visit;
+import com.example.Client.repository.IVisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class StatisticService {
 
   @Autowired
-  private IVisitService iVisitService;
+  private IVisitRepository iVisitRepository;
+
+
 
   public Double getTotalValue(){
-      List<Visit>listAllVisits = iVisitService.allVisitList();
-      int size = listAllVisits.size();
+      List<Visit>listAllVisits = iVisitRepository.allVisitList();
       Double totalValue= 0.0;
       for (Visit listAllVisit : listAllVisits) {
           totalValue += listAllVisit.getTotalPrice();
@@ -21,8 +25,7 @@ public class StatisticService {
       return totalValue ;
   }
     public Double getCloseValue(){
-        List<Visit>listCloseVisits = iVisitService.getVisitClose();
-        int size = listCloseVisits.size();
+        List<Visit>listCloseVisits = iVisitRepository.getVisitClose();
         Double totalCloseValue= 0.0;
         for (Visit listCloseVisit : listCloseVisits) {
             totalCloseValue += listCloseVisit.getTotalPrice();

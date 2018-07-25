@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 
 <!--CONTAINER-->
@@ -13,26 +13,24 @@
      <label th:text="${title}"/>
      <div class="card-body">
 
-    <form th:action="@{/form}" th:object="${ClientNew}"  method="post"  class="form-group">
+    <form th:action="@{/formClient}" th:object="${NewClient}"  method="post"  class="form-group">
         <input  type="hidden" th:field="*{id}">
         <div class="form-group row">
-        <label>Name:</label>
-        <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
+            <label>Name:</label>
+             <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
             <small class="text-form text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
-
         </div>
         <div class="form-group row">
             <label>Surname:</label>
-            <label>
-                <input th:type="text" class="form-control" th:field="*{surname}" th:errorclass="alert-danger" >
+            <input th:type="text" class="form-control" th:field="*{surname}" th:errorclass="alert-danger" >
             </label>
             <small class="text-form text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/>
         </div>
 
         <div class="form-group row">
-        <label>Mail:</label>
-        <input class="form-control" th:type="text" th:field="*{email}" th:errorclass="alert-danger">
-        <small class="text-form text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                <label>Mail:</label>
+            <input class="form-control" th:type="text" th:field="*{email}" th:errorclass="alert-danger">
+            <small class="text-form text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
         </div>
 
         <div class="form-group row">
@@ -54,6 +52,6 @@
 </div>
 
 <!--FOOTER-->
-<footer th:replace="layout/Layout :: footer"/>
+<footer th:replace="layout/layout :: footer"/>
 </body>
 </html>

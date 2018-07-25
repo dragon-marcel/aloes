@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 <!--CONTAINER-->
 
@@ -14,14 +14,14 @@
         <h2>Client details :</h2>
             <a th:href="@{/client/}+${Visit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
 
-            <a th:if="${Visit.sendEmail == false }" th:href="@{'/visit/visitDetails/' + ${Visit.id}+'/sendEmail'}"  class=" ml-2 btn btn-success float-right">SEND MAIL</a>
+            <a th:if="${Visit.sendEmail == false }" th:href="@{'/visit/' + ${Visit.id}+'/sendEmail'}"  class=" ml-2 btn btn-success float-right">SEND MAIL</a>
             <button th:if="${Visit.sendEmail ==true }" class="ml-2 btn btn-secondary  float-right">SENT</button>
 
-            <a th:href="@{'/visit/visitDetails/' + ${Visit.id}(format = pdf)}" target="_blank" class="btn btn-danger float-right">PDF</a>
+            <a th:href="@{'/visit/' + ${Visit.id}(format = pdf)}" target="_blank" class="btn btn-danger float-right">PDF</a>
 
         </div>
         <div class="card-body">
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
             <ul class="list-group my-2">
 
                 <li class="list-group-item" th:text="${'Name & Surname: '+Visit.client.name + ' ' +
@@ -71,7 +71,7 @@
 
 </div>
 <br><br>
-<footer th:replace="layout/Layout :: footer"/>
+<footer th:replace="layout/layout :: footer"/>
 <!--Modal Change-->
 <div class="myForm">
     <form th:action="@{/visit/edit/}" th:object="${Visit}" method="post">

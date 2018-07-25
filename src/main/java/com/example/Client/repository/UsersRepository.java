@@ -1,31 +1,29 @@
-package com.example.Client.service;
+package com.example.Client.repository;
 
-import com.example.Client.dao.IUsers;
-import com.example.Client.entity.User;
+import com.example.Client.dao.IUserDAO;
 import com.example.Client.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Service
-public class UsersService implements IUsersService {
+@Repository
+public class UsersRepository implements IUsersRepository {
 
 @Autowired
-private IUsers iUsers;
+private IUserDAO iUserDAO;
 
 @Autowired
 private  BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public List<User> findAll() {
-        return (List<User>) iUsers.findAll();
+    public List<User> findAllUser() {
+        return (List<User>) iUserDAO.findAll();
     }
 
     @Override
     public void deleteUserbyId(Long id) {
-        iUsers.deleteById(id);
+        iUserDAO.deleteById(id);
     }
 
     @Override
@@ -34,7 +32,7 @@ private  BCryptPasswordEncoder bCryptPasswordEncoder;
         String pass = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(pass);
 
-        iUsers.save(user);
+        iUserDAO.save(user);
     }
 
 }

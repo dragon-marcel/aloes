@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
-<header th:replace="layout/Layout :: header"/>
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
 
 
 <body>
@@ -13,9 +13,9 @@
         <a th:href="@{/client/}+${newVisit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
         </div>
         <div class="card-body">
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
 
-            <form th:action="@{/visit/form/}" th:object="${newVisit}" method="post">
+            <form th:action="@{/formVisit/}" th:object="${newVisit}" method="post">
                 <label class="col-sm-2 col-form-label">Client:</label>
                 <input disabled="disabled" th:value="${newVisit.client.name} + ' ' + ${newVisit.client.surname}"
                        class="form-control">
@@ -66,7 +66,7 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <th>Delate</th>
+                <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -89,7 +89,7 @@
 
 </div>
 <br>
-<footer th:replace="layout/Layout :: footer"/>
+<footer th:replace="layout/layout :: footer"/>
 <script th:replace="visit/js/search-massage :: javascript"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
         $("#search-massage").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/visit/load-massage/" + request.term,
+                    url: "/load-massage/" + request.term,
                     dataType: "json",
                     data: {
                         term: request.term
@@ -77,7 +77,7 @@
             this.calculatorPrice(id,price,quantity);
 
         },
-        delateItem:function (id) {
+        deleteItem:function (id) {
             $('#row_'+id).remove();
             this.calculatorTotal();
 

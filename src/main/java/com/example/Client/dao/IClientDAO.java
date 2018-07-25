@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
 
 @Repository
-public interface ClientDAO extends CrudRepository<Client,Long>{
+public interface IClientDAO extends CrudRepository<Client,Long>{
 }

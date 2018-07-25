@@ -1,9 +1,9 @@
-package com.example.Client.service;
+package com.example.Client.repository;
 import com.example.Client.entity.User;
 import java.util.List;
 
-public interface IUsersService {
-     List<User> findAll();
+public interface IUsersRepository {
+     List<User> findAllUser();
      void deleteUserbyId(Long id);
      void saveUser(User users);
 

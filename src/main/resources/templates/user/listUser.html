@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/Layout :: head"/>
+<head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
-<header th:replace="layout/Layout :: header"/>
+<header th:replace="layout/layout :: header"/>
 
 <!--CONTAINER-->
 <div class="container py-5">
@@ -13,12 +13,12 @@
         </div>
         <div class="card-body">
 
-            <div th:replace="layout/Layout :: info"/>
+            <div th:replace="layout/layout :: info"/>
 
             <table class="table table-hover sticky-top">
                 <thead class="bg-success">
                 <tr>
-                    <th>ID</th><th>Name<th>Role</th> <th>Delate</th>
+                    <th>ID</th><th>Name<th>Role</th> <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody th:each="user:${users}">
@@ -26,7 +26,7 @@
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.userName}"></td>
                     <td th:text="${user.role}"></td>
-                    <td style="width:20px"><a th:href="@{/users/delate/} + ${user.id}" onclick="return confirm('are sure delate ??');" class="btn btn-danger">X</a> </td>
+                    <td style="width:20px"><a th:href="@{/user/delete/} + ${user.id}" onclick="return confirm('are sure delete ??');" class="btn btn-danger">X</a> </td>
                </tr>
                 </tbody>
             </table>
@@ -35,7 +35,7 @@
     </div>
 
     <!--FOOTER-->
-    <footer th:replace="layout/Layout :: footer"/>
+    <footer th:replace="layout/layout :: footer"/>
 
 </body>
 </html>

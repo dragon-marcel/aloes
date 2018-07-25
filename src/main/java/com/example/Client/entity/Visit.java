@@ -124,6 +124,7 @@ private boolean status;
     public void addItems(ItemVisit itemVisit){
         this.items.add(itemVisit);
     }
+
     public Double getTotalPrice(){
         Double total = 0.0;
         int size = items.size();

@@ -1,7 +1,7 @@
 package com.example.Client.controller;
 
 import com.example.Client.entity.Massage;
-import com.example.Client.service.IMassageService;
+import com.example.Client.repository.IMassageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,89 +9,95 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "massage")
 public class MassageController {
 
     @Autowired
-    private IMassageService iMassageService;
+    private IMassageRepository iMassageRepository;
 
-    @RequestMapping(value = "/list")
-    public String getListMassage(Model model){
-        List<Massage> listMassage =iMassageService.getAllMassage();
+    @RequestMapping(value = "massages")
+    public String findAllMassages(Model model){
+
+        List<Massage> listMassage = iMassageRepository.getAllMassage();
         model.addAttribute("listMassage",listMassage);
         model.addAttribute("title","List massages");
-        return "massage/list";
+        return "massage/listMassage";
     }
-    @RequestMapping(value = "form")
-    public String fomMassage(Model model){
+
+    @RequestMapping(value = "formMassage")
+    public String newMassage(Model model){
+
         Massage newMassage = new Massage();
+
         model.addAttribute("newMassage",newMassage);
         model.addAttribute("title","New massage");
-        return "massage/form";
+        return "massage/formMassage";
     }
-    @PostMapping(value = "form")
-    public String saveMassage(@Valid@ ModelAttribute("newMassage") Massage massage, BindingResult result, RedirectAttributes flash,
+    @PostMapping(value = "formMassage")
+    public String saveMassage(@Valid@ ModelAttribute("newMassage") Massage massage,
+                              BindingResult result, RedirectAttributes flash,
                               @RequestParam("price")Double price){
         if (result.hasErrors()){
-            return "/massage/form";
+            return "massage/formMassage";
         }
         if (price == null) {
             massage.setPrice(0.0);
         }
         String messageSucces = null;
         if (massage.getId() != null){
-            messageSucces = "Massae update";
+            messageSucces = "Massage update";
         }else {
             messageSucces = "Add new massage";
         }
-        iMassageService.saveMassage(massage);
+        iMassageRepository.saveMassage(massage);
         flash.addFlashAttribute("success",messageSucces);
-        return "redirect:/massage/list";
+
+        return "redirect:/massages";
     }
-    @RequestMapping(value = "form/{id}")
+    @RequestMapping(value = "formMassage/{id}")
     public String updateMassage(Model model,@PathVariable("id")Long id,
                                 RedirectAttributes flash){
-        Massage massage = iMassageService.getMassage(id);
+        Massage massage = iMassageRepository.getMassageById(id);
         if (massage == null){
             flash.addFlashAttribute("danger","Massage not exist");
         }
         model.addAttribute("newMassage",massage);
-        return "massage/form";
+        return "massage/formMassage";
     }
-    @RequestMapping(value = "delate/{id}")
-    public String delateMassage(Model model,
+    @RequestMapping(value = "massage/delete/{id}")
+    public String deleteMassage(Model model,
                                 @PathVariable ("id")Long id,
                                 RedirectAttributes flash) {
 
-        Massage massage = iMassageService.getMassage(id);
+        Massage massage = iMassageRepository.getMassageById(id);
 
         if (massage == null) {
-            flash.addFlashAttribute("danger", "Error delate,Massage not exist");
-            return "redirect:/massage/list";
+            flash.addFlashAttribute("danger", "Error delete,Massage not exist");
+            return "redirect:/massages";
         } else {
             try {
-                iMassageService.deleteMassage(id);
+                iMassageRepository.deleteMassageById(id);
 
             } catch (Exception e) {
                 flash.addFlashAttribute("danger", "Error,massage is used");
-                return "redirect:/massage/list";
+                return "redirect:/massages";
             }
 
         }
-        flash.addFlashAttribute("success","Delate massage");
-        return "redirect:/massage/list";
+        flash.addFlashAttribute("success","Delete massage");
+        return "redirect:/massages";
     }
-    @RequestMapping(value = "details/{id}")
+    @RequestMapping(value = "massage/{id}")
     public String getMassage(Model model,@PathVariable("id")Long id){
-       Massage massage =  iMassageService.getMassage(id);
+
+       Massage massage =  iMassageRepository.getMassageById(id);
+
        model.addAttribute("massage",massage);
        model.addAttribute("title","Massage details");
-       return "massage/massageDetails";
+
+       return "massage/detailsMassage";
     }
 }

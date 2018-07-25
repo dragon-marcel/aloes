@@ -5,8 +5,9 @@ import com.example.Client.entity.Client;
 import com.example.Client.entity.ItemVisit;
 import com.example.Client.entity.Massage;
 import com.example.Client.entity.Visit;
-import com.example.Client.service.ClientService;
-import com.example.Client.service.IMassageService;
+import com.example.Client.repository.ClientRepository;
+import com.example.Client.repository.IMassageRepository;
+import com.example.Client.repository.VisitRepository;
 import com.example.Client.service.VisitService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,103 +20,73 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(value = "/visit")
 @SessionAttributes("newVisit")
 public class VisitController {
     @Autowired
-    private ClientService clientService;
+    private ClientRepository clientRepository;
+    @Autowired
+    private VisitRepository visitRepository;
     @Autowired
     private VisitService visitService;
-
     @Autowired
     private EmailSender emailSender;
     @Autowired
     private TemplateEngine templateEngine;
     @Autowired
-    private IMassageService massageService;
+    private IMassageRepository massageService;
 
     private final org.slf4j.Logger log = LoggerFactory.getLogger(getClass());
 
-    @GetMapping(value ="visitDetails/{idVisit}")
-    public String visitDetails(@PathVariable("idVisit")Long id,
+    @RequestMapping(value = "visits")
+    public String FindAllVisit(Model model){
+        List<Visit> visitslist = visitRepository.allVisitList();
+        model.addAttribute("list",visitslist);
+        model.addAttribute("title","List all visits");
+        return "visit/listVisit";
+    }
+
+    @GetMapping(value ="visit/{id}")
+    public String visitDetails(@PathVariable("id")Long id,
                                Model model,RedirectAttributes flash){
-        Visit visit = visitService.findVisitById(id);
+
+        Visit visit = visitRepository.findVisitById(id);
 
         if (visit == null){
             flash.addFlashAttribute("danger","Visit not exist");
             return "redirect:/";
         }
         List<ItemVisit> listItem = visit.getItems();
-        model.addAttribute("title","Edit Visit");
+        model.addAttribute("title","Edit visit");
         model.addAttribute("Visit",visit);
         model.addAttribute("item",listItem);
-        return "visit/visitDetails";
+        return "visit/detailsVisit";
 
     }
-    @GetMapping(value ="visitDetails/{idVisit}/sendEmail")
-    public String sendEmail(Model model,RedirectAttributes flash,
-                            @PathVariable("idVisit") Long id){
-       Visit visit = visitService.findVisitById(id);
 
-       Client client = visit.getClient();
-       String  email = client.getEmail();
-       String title = "Aloes-gabinet odnowy reminder about visit " + visit.getDescription()+ "";
-
-        Context context = new Context();
-        context.setVariable("massageDetails",visit.getItems());
-        context.setVariable("header", "Aloes-gabinet odnowy");
-        context.setVariable("description", visit.getDescription());
-        context.setVariable("name", visit.getClient().getName() + ' ' + visit.getClient().getSurname());
-        context.setVariable("dateVisit", visit.getVisitDate().toString());
-        context.setVariable("timeVisit", visit.getVisitTime().toString());
-
-
-
-        String body = templateEngine.process("layout/email", context);
-        if (emailSender.sendEmail(email,title,body)){
-            visit.setSendEmail(true);
-            visitService.saveVisit(visit);
-
-        }
-
-        flash.addFlashAttribute("success","Success,email send");
-
-        return "redirect:/visit/visitDetails/"+id;
-    }
-
-    @GetMapping(value = "/form/{clientId}")
-    public String createVisit(@PathVariable("clientId") Long id,
+    @GetMapping(value = "formVisit/{id}")
+    public String newVisit(@PathVariable("id") Long id,
                               Model model,
-                              RedirectAttributes flash,
-                              SessionStatus sessionStatus) {
-        Client client = clientService.findOne(id);
+                              RedirectAttributes flash
+                              ) {
+        Client client = clientRepository.findOneClientById(id);
         if (client == null) {
             flash.addFlashAttribute("danger", "Client not exist");
-            return "redirect:/list";
+            return "redirect:/clients";
         }
         Visit visit = new Visit();
         visit.setClient(client);
         model.addAttribute("newVisit", visit);
         model.addAttribute("title", "NEW VISIT");
-        return "visit/form";
+        return "visit/formVisit";
     }
-@GetMapping(value = "/load-massage/{term}",produces = {"application/json"})
-
-public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
-        return massageService.findMassageByName( term);
-}
-
-@PostMapping(value = "/form")
+    @PostMapping(value = "formVisit")
     public String saveVisit(@Valid @ModelAttribute("newVisit") Visit newVisit,
                             BindingResult result,
                             RedirectAttributes flash,
@@ -129,68 +100,69 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
         Date visitTime =newVisit.getVisitTime();
         String visitFormatDate = formatDate.format(newVisit.getVisitDate());
         String visitFormatTime = formatTime.format(visitTime);
-     if (visitService.checkifBusyDataAndTime(visitFormatDate,visitTime)== false){
-         flash.addFlashAttribute("danger",visitFormatDate + " at hour "+ visitFormatTime + " it'is busy,please chose different time.");
-         return "redirect:/visit/form/"+ newVisit.getClient().getId();
 
-     }else {
+        if (visitService.checkIfBusyDataAndTime(visitFormatDate,visitTime)== false){
+            flash.addFlashAttribute("danger",visitFormatDate + " at hour "+ visitFormatTime + " it'is busy,please chose different time.");
+            return "redirect:/formVisit/"+ newVisit.getClient().getId();
 
-        if (result.hasErrors()) {
-            flash.addFlashAttribute("danger","ERROR");
-            return "redirect:/visit/form/"+ newVisit.getClient().getId();
+        }else {
 
+            if (result.hasErrors()) {
+                flash.addFlashAttribute("danger","ERROR");
+                return "redirect:/formVisit/"+ newVisit.getClient().getId();
+
+            }
+
+            for(int a = 0; a < ItemId.length; a++){
+                Massage massage = massageService.findMassageById(ItemId[a]);
+                ItemVisit itemVisit = new ItemVisit();
+                itemVisit.setMassage(massage);
+                itemVisit.setQuantity(quantity[a]);
+                newVisit.addItems(itemVisit);
+                log.info("id"+ ItemId[a].toString() + "quantity:"+ quantity[a].toString());
+            }
+            visitRepository.saveVisit(newVisit);
+            flash.addFlashAttribute("success","Add new Visit" + " \""+ newVisit.getDescription()+ "\"");
+            sessionStatus.setComplete();
+            return "redirect:/client/" + newVisit.getClient().getId();
         }
+    }
 
-        for(int a = 0; a < ItemId.length; a++){
-        Massage massage = massageService.findMassageById(ItemId[a]);
-            ItemVisit itemVisit = new ItemVisit();
-            itemVisit.setMassage(massage);
-            itemVisit.setQuantity(quantity[a]);
-            newVisit.addItems(itemVisit);
-            log.info("id"+ ItemId[a].toString() + "quantity:"+ quantity[a].toString());
-        }
-         visitService.saveVisit(newVisit);
-        flash.addFlashAttribute("success","Add new Visit" + " \""+ newVisit.getDescription()+ "\"");
-        sessionStatus.setComplete();
-        return "redirect:/client/" + newVisit.getClient().getId();
-    }}
-    @GetMapping("/delate/{id}")
-    public String delateVisit(@PathVariable("id")Long id,
+    @GetMapping("/visit/delete/{id}")
+    public String deleteVisit(@PathVariable("id")Long id,
                               RedirectAttributes  flash){
-        Visit visit = visitService.findVisitById(id);
+        Visit visit = visitRepository.findVisitById(id);
         if (visit != null){
-            visitService.deleteVisit(id);
-            flash.addFlashAttribute("success","Delate visit");
+            visitRepository.deleteVisitById(id);
+            flash.addFlashAttribute("success","Delete visit");
             return "redirect:/client/" + visit.getClient().getId();
 
         }
-        flash.addFlashAttribute("danger","error delate visit");
+        flash.addFlashAttribute("danger","error delete visit");
         return "redirect:/client/" + visit.getClient().getId();
     }
-    @RequestMapping(value = "/list")
-    public String AllVisitlist(Model model){
-        List<Visit> visitslist = visitService.allVisitList();
-        model.addAttribute("list",visitslist);
-        model.addAttribute("title","List all visits");
-        return "visit/list";
-    }
-    @RequestMapping(value = "/open")
+
+    @RequestMapping(value = "/visitsOpen")
     public String listOpenVisit(Model model){
-        List<Visit>openVisit = visitService.getVisitOpen();
+        List<Visit>openVisit = visitRepository.getVisitOpen();
         model.addAttribute("title","Open visits");
         model.addAttribute("openVisit",openVisit);
         return "visit/openVisit";
     }
-    @RequestMapping(value = "/close")
+
+    @RequestMapping(value = "/visitsClose")
     public String listCloseVisit(Model model){
-        List<Visit>closeVisit = visitService.getVisitClose();
+        List<Visit>closeVisit = visitRepository.getVisitClose();
         model.addAttribute("title","Close visits");
         model.addAttribute("closeVisit",closeVisit);
         return "visit/closeVisit";
     }
+    @GetMapping(value = "/load-massage/{term}",produces = {"application/json"})
+    public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
+        return massageService.findAllMassageByName(term);
+    }
 
-
-    @PostMapping(value = "edit")
+    @PostMapping(value = "visit/edit")
     public String closeVisit(Visit visit,@RequestParam("massage[]")Long[] id,
                              @RequestParam("quantity[]")Integer[]quantity,
                              RedirectAttributes flash){
@@ -202,8 +174,35 @@ public @ResponseBody List<Massage>searchMassage(@PathVariable String term){
             list.setQuantity(quantity[a]);
             visit.addItems(list);
         }
-        visitService.saveVisit(visit);
+        visitRepository.saveVisit(visit);
         flash.addFlashAttribute("success","You changed status");
-     return "redirect:/visit/visitDetails/"+visit.getId();
+     return "redirect:/visit/"+visit.getId();
+    }
+
+    @GetMapping(value ="visit/{id}/sendEmail")
+    public String sendEmail(RedirectAttributes flash,
+                            @PathVariable("id") Long id){
+        Visit visit = visitRepository.findVisitById(id);
+
+        Client client = visit.getClient();
+        String  email = client.getEmail();
+        String title = "Aloes-gabinet odnowy reminder about visit " + visit.getDescription()+ "";
+
+        Context context = new Context();
+        context.setVariable("massageDetails",visit.getItems());
+        context.setVariable("header", "Aloes-gabinet odnowy");
+        context.setVariable("description", visit.getDescription());
+        context.setVariable("name", visit.getClient().getName() + ' ' + visit.getClient().getSurname());
+        context.setVariable("dateVisit", visit.getVisitDate().toString());
+        context.setVariable("timeVisit", visit.getVisitTime().toString());
+
+        String body = templateEngine.process("layout/email", context);
+
+        if (emailSender.sendEmail(email,title,body)){
+            visit.setSendEmail(true);
+            visitRepository.saveVisit(visit);
+        }
+        flash.addFlashAttribute("success","Success,email send");
+        return "redirect:/visit/"+id;
     }
 }

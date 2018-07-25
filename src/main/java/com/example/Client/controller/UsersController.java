@@ -1,7 +1,7 @@
 package com.example.Client.controller;
 
 import com.example.Client.entity.User;
-import com.example.Client.service.UsersService;
+import com.example.Client.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,44 +16,48 @@ import java.util.List;
 @Controller
 public class UsersController {
     @Autowired
-    private UsersService usersService;
+    private UsersRepository usersService;
 
-    @RequestMapping(value = "/user")
-    public String user(Model model){
-        model.addAttribute("title","User");
-        return "users/user";
-    }
-    @RequestMapping(value = "/users")
-    public String findUsers(Model model){
-        model.addAttribute("title","List users");
-        List<User> user = usersService.findAll();
+    @RequestMapping(value = "users")
+    public String findAllUsers(Model model){
+
+        List<User> user = usersService.findAllUser();
+
+        model.addAttribute("title","List user");
         model.addAttribute("users",user);
-        return "users/users";
+        return "user/listUser";
     }
 
-    @GetMapping(value = "users/delate/{id}")
-    public String delateUser(@PathVariable("id") Long id,RedirectAttributes flash){
+    @GetMapping(value = "user/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id,RedirectAttributes flash){
+
         usersService.deleteUserbyId(id);
-        flash.addFlashAttribute("danger","Delate user");
+
+        flash.addFlashAttribute("danger","Delete user");
         return "redirect:/users";
     }
 
-   @RequestMapping("users/form")
+   @RequestMapping("formUser")
    public String newUser(Model model){
+
         User users = new User();
+
         model.addAttribute("title","New user");
         model.addAttribute("newUser",users);
-        return "users/form";
+        return "user/formUser";
    }
 
 
-   @PostMapping("users/form")
-   public String saveUser(@Valid @ModelAttribute("newUser") User user, BindingResult result, RedirectAttributes flash){
+   @PostMapping("formUser")
+   public String saveUser(@Valid @ModelAttribute("newUser") User user,
+                          BindingResult result, RedirectAttributes flash){
+
             if (result.hasErrors()){
-                return "/users/form";
+                return "/user/formUser";
             }
             usersService.saveUser(user);
-            flash.addFlashAttribute("success","Created new User");
+
+            flash.addFlashAttribute("success","Created new user");
             return "redirect:/users";
 
    }
