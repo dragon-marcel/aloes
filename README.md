@@ -2,9 +2,8 @@
 Aloes - gabinet odnowy
 
 
-(ADMIN) Login:admin ,pPassword:admin;
-
-(USER)Login:user, password:user;
+# (ADMIN) Login:admin ,password:admin;
+# (USER)Login:user, password:user;
 
 http://localhost:8080/login - strona do logowania.
 
@@ -33,7 +32,7 @@ http://localhost:8080/formUser/ - dodawanie nowego urzytkowanika z możliwości�
 http://localhost:8080/statistic/ - statystyki.
 
 
-REST FULL API:
+#REST FULL API:
 
 http://localhost:8080/api/client - (method GET) -lista klientów w formacie JSON.
 
