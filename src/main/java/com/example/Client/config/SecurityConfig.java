@@ -19,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/list/**").hasAnyAuthority("ADMIN")
+        httpSecurity.authorizeRequests().antMatchers("/client/delete/**","/massage/delete/**",
+                "/users","/user/delete","/formUser").hasAnyAuthority("ADMIN")
                 .antMatchers("/css/**","/js/**").permitAll()
         .anyRequest().authenticated().
                 and().

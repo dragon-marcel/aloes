@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/Layout :: head"/>
 <body>
 <!--HEADER-->
@@ -30,7 +30,7 @@
                     <td th:text="${listMassage.price}"></td>
                     <td style="width:20px"><a th:href="@{/formMassage/} + ${listMassage.id}" class="btn btn-success">Edit</a></td>
                     <td style="width:20px"><a th:href="@{/massage/} + ${listMassage.id}" class="btn btn-info">Details</a> </td>
-                    <td style="width:20px"><a th:href="@{/massage/delete/} + ${listMassage.id}" onclick="return confirm('Are sure delete??')" class="btn btn-danger">Delete</a>    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')" style="width:20px"><a th:href="@{/massage/delete/} + ${listMassage.id}" onclick="return confirm('Are sure delete??')" class="btn btn-danger">Delete</a>    </td>
                 </tr>
                 </tbody>
             </table>

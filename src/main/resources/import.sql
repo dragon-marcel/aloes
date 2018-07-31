@@ -32,5 +32,5 @@ INSERT  INTO Items_visit(id,quantity,massage_id,items_id) VALUES ('9','4','2','5
 INSERT  INTO Items_visit(id,quantity,massage_id,items_id) VALUES ('10','3','1','5');
 
 /*USERS*/
-INSERT INTO User (id,user_name,password,role,enabled) VALUES ('1','admin','$2a$10$cpvOActEF7GwtMMXhVUXVuGTmFFD6SDo796wmk9fwrfQD5Pjvx.nC','ADMIN',TRUE );
-INSERT INTO User (id,user_name,password,role,enabled) VALUES ('2','user','$2a$10$1daH42.beZRG.9m8CgccM.nyzAIvLmIzZCJZz5573qLpt3/h4N.hu','USER',TRUE );
+INSERT INTO User (id,user_name,password,role,enabled) VALUES ('1','admin','$2a$10$2mBQiQ6VvWtQVprEt7LTRu8pToAc1YvhM/glDVBPxeEdPqJYA1t.i','ADMIN',TRUE );
+INSERT INTO User (id,user_name,password,role,enabled) VALUES ('2','user','$2a$10$pGUnbw64o4s6u7JkAxsZDuqf81vBoOOD5uNYvc7kvhXHTxAiyb3YS','USER',TRUE );
