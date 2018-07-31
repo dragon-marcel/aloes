@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/layout :: head"/>
 <body>
 <!--HEADER-->
@@ -69,7 +69,7 @@
                     <td th:text="${visits.visitDate}"></td>
                     <td th:text="${visits.visitTime}"></td>
                     <td><a th:href="@{/visit/} + ${visits.id}" class="btn btn-info">View</a></td>
-                    <td><a th:href="@{/visit/delete/} + ${visits.id}" class="btn btn-danger"
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/visit/delete/} + ${visits.id}" class="btn btn-danger"
                            onclick="return confirm('Are you sure delete ??');">X</a></td>
                 </tr>
                 </tbody>

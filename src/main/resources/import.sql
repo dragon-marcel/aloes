@@ -1,14 +1,14 @@
 INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('1','Marcel','Dragon','796-105-227','dragon.marcel@o2.pl','2018-02-12');
-INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('2','Madrcel','fsdf','796-105-227','drako@o2.pl','2018-02-12');
-INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('3','Mardscel','Dragon','796-105-227','drako@o2.pl','2018-02-12');
-INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('4','Marsdcel','sd','796-105-227','drako@o2.pl','2018-02-12');
-INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('5','d','d','796-105-227','drako@o2.pl','2018-02-12');
-INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('7','Marcel','Dragon','796-105-227','drako@o2.pl','2018-02-12');
+INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('2','Asia','Miś','234-233-333','drako@o2.pl','2010-02-12');
+INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('3','Iga','Nowak','444-111-227','iga@o2.pl','2018-06-12');
+INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('4','Marek','Kowalski','344-333-234','Marek@o2.pl','2018-02-12');
+INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('5','Andrzej','Babua','796-105-227','drako@o2.pl','2018-02-12');
+INSERT INTO Client (id,name,surname,number,email,create_date) VALUES ('7','Teresa','Ruda','555-555-555','ruda@o2.pl','2018-02-12');
 
 /*MASSAGE */
-INSERT INTO Massage (id,name,price) VALUES ('1','Massage Head','24');
-INSERT INTO Massage (id,name,price) VALUES ('2','Massage Leg','44');
-INSERT INTO Massage (id,name,price) VALUES ('3','Massage Neck','4.9');
+INSERT INTO Massage (id,name,price) VALUES ('1','massage head','60.9');
+INSERT INTO Massage (id,name,price) VALUES ('2','massage legs','45.5');
+INSERT INTO Massage (id,name,price) VALUES ('3','massage neck','30.9');
 
 /*VISIT */
 INSERT INTO Visits (id,create_date,description,visit_date,send_email,visit_time,status,client_id)VALUES ('1','2019-12-12','Massage','2016-03-12',false ,'12:12:12',TRUE,'1');
