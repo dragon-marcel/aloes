@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailSender {
     @Autowired
     private JavaMailSender javaMailSender;
+
     public boolean sendEmail(String to, String title, String content) {
         MimeMessage mailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
