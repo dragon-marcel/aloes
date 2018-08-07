@@ -1,5 +1,6 @@
 package com.example.Client;
 
+import com.example.Client.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,6 @@ public class ClientApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-
 
 
 

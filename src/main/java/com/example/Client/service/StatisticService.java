@@ -1,6 +1,7 @@
 package com.example.Client.service;
 
 import com.example.Client.entity.ItemVisit;
+import com.example.Client.entity.Massage;
 import com.example.Client.entity.Visit;
 import com.example.Client.repository.IVisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,14 @@ public class StatisticService {
             totalCloseValue += listCloseVisit.getTotalPrice();
         }
         return totalCloseValue ;
+    }
+public int getQuantityCloseVisit() {
+   int resultclose = (int) iVisitRepository.allVisitList().stream().filter((a -> a.isStatus() == true)).count();
+   return resultclose;
+  }
+
+public int getQuantityOpernVisit() {
+        int resultOpen = (int) iVisitRepository.allVisitList().stream().filter((a -> a.isStatus() == false)).count();
+        return resultOpen;
     }
 }

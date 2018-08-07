@@ -25,8 +25,8 @@ public class StatisticController {
     public String statistic(Model model){
         model.addAttribute("title","Statistic Aloes-Gabinet Odnowy");
         model.addAttribute("quantityVisits", iVisitRepository.allVisitList().size());
-        model.addAttribute("quantityVisitsOpen", iVisitRepository.getVisitClose().size());
-        model.addAttribute("quantityVisitsClose", iVisitRepository.getVisitOpen().size());
+        model.addAttribute("quantityVisitsOpen", statisticService.getQuantityOpernVisit());
+        model.addAttribute("quantityVisitsClose", statisticService.getQuantityCloseVisit());
         model.addAttribute("quantityClient", iClientRepository.findAllClient().size());
         model.addAttribute("quantityUser", iUsersRepository.findAllUser().size());
         model.addAttribute("quantityTotalValue",statisticService.getTotalValue());
