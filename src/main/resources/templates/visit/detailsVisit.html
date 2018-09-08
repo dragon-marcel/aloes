@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container pt-5">
+    <div class="card bg-light">
+        <div class="card-header">
+
+        <h2 th:text="#{text.visit.detailsVisit.clientDetails}">Client details :</h2>
+            <a th:href="@{/client/}+${Visit.client.id}" th:text="#{text.visit.detailsVisit.previous}" class="pl-3"></a>
+            <a th:if="${!Visit.sendEmail}" th:href="@{'/visit/' + ${Visit.id}+'/sendEmail'}"
+               th:text="#{text.visit.detailsVisit.send}"class=" ml-2 btn btn-success float-right">SEND MAIL</a>
+            <button th:if="${Visit.sendEmail}" class="ml-2 btn btn-secondary  float-right"
+                    th:text="#{text.visit.detailsVisit.mailed}">MAILED</button>
+            <a th:href="@{'/visit/' + ${Visit.id}(format = pdf)}" target="_blank" class="btn btn-danger float-right">PDF</a>
+        </div>
+        <div class="card-body">
+            <div th:replace="layout/layout :: info"/>
+            <ul class="list-group my-2">
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.name}+ ${Visit.client.name + ' ' +
+                Visit.client.surname}"></li>
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.telephon} +${Visit.client.number}"></li>
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.mail}+${Visit.client.email}"></li>
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.dateCreated} +${Visit.createDate}"></li>
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.dateVisit} +${Visit.createDate}"></li>
+                <li class="list-group-item" th:text="#{text.visit.detailsVisit.timeVisit} +${Visit.visitTime}"></li>
+            </ul>
+
+            <label th:text="'Status:'"/>
+                <img th:if="${!Visit.status}" style="width: 20px;padding-left: 10px" th:src="@{/image/xx.png}"/>
+                <img th:if="${Visit.status}" style="width:20px;padding-left: 10px" th:src="@{/image/okk.png}"/>
+
+            <button th:type="button" id="change" style="margin-left: 20px "class="btn btn-danger"
+                    th:text="#{text.visit.detailsVisit.change}">Change</button>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-header">
+            <h2 th:text="#{text.visit.detailsVisit.massageItems}">Massage items :</h2>
+        </div>
+        <div class="card-body">
+            <table  class="table table-hover sticky-top">
+                <thead class="bg-success">
+                <th th:text="#{text.visit.detailsVisit.massage}">Massage</th>
+                <th th:text="#{text.visit.detailsVisit.quantity}">Quantity</th>
+                <th th:text="#{text.visit.detailsVisit.price}">Price</th>
+                </thead>
+                <tbody th:each="visitsItems:${Visit.items}">
+                <tr>
+                    <th th:text="${visitsItems.massage.name}"></th>
+                    <td th:text="${visitsItems.quantity}"></td>
+                    <td th:text="${visitsItems.countPrice()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <h5 class="float-right" th:text="#{text.visit.detailsVisit.totalPrice}
+            +${Visit.getTotalPrice()}">Total Price:</h5>
+
+        </div>
+    </div>
+    <a th:href="@{/client/}+${Visit.client.id}" th:text="#{text.visit.detailsVisit.previous}" class="pl-3"></a>
+
+</div>
+<br><br>
+
+    <footer th:replace="layout/layout :: footer"/>
+
+<!--Modal Change-->
+<div class="myForm">
+    <form th:action="@{/visit/edit/}" th:object="${Visit}" method="post">
+        <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel"th:text="#{text.visit.detailsVisit.editStatus}">EDIT STATUS</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <input th:type="hidden" th:field="*{id}" />
+                            <input th:type="hidden" th:field="*{client}"/>
+                            <input th:type="hidden" th:field="*{description}"/>
+                            <input th:type="hidden" th:field="*{createDate}"/>
+                            <input th:type="hidden" th:field="*{visitDate}"/>
+                            <input th:type="hidden" th:field="*{visitTime}"/>
+                            <td th:each="items:${item}">
+                                <input th:type="hidden" th:value="${items.massage.id}" name="massage[]" >
+                                <input th:type="hidden" th:value="${items.quantity}" name="quantity[]" >
+                            </td>
+                            <select th:field="*{status}" class="form-control">
+                                <option th:value="true " th:text="#{text.visit.detailsVisit.closeVisit}">close visit</option>
+                                <option th:value="false" th:text="#{text.visit.detailsVisit.openVisit}">open visit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                th:text="#{text.visit.detailsVisit.close}">Close</button>
+                        <button type="submit" class="btn btn-primary"th:text="#{text.visit.detailsVisit.update}">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/change.js}"></script>
+
+</body>
+</html>

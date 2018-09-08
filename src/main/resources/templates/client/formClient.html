@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container pt-5">
+    <div class="card bg-success text-white">
+     <label th:text="${title}"/>
+     <div class="card-body">
+
+    <form th:action="@{/formClient}" th:object="${NewClient}"  method="post"  class="form-group">
+        <input  type="hidden" th:field="*{id}">
+        <div class="form-group row">
+            <label th:text="#{text.client.formClient.name}">Name:</label>
+             <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
+            <small class="text-form text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+        </div>
+        <div class="form-group row">
+            <label th:text="#{text.client.formClient.surname}">Surname:</label>
+            <input th:type="text" class="form-control" th:field="*{surname}" th:errorclass="alert-danger" >
+            <small class="text-form text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/>
+        </div>
+
+        <div class="form-group row">
+                <label th:text="#{text.client.formClient.mail}">Mail:</label>
+            <input class="form-control" th:type="text" th:field="*{email}" th:errorclass="alert-danger">
+            <small class="text-form text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+        </div>
+
+        <div class="form-group row">
+            <label th:text="#{text.client.formClient.telephon}">Number telephon:</label>
+            <input th:type="text" class="form-control" th:field="*{number}" th:errorclass="alert-danger" >
+            <small class="text-form text-danger" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"/>
+        </div>
+
+        <div class="form-group row">
+            <label th:text="#{text.client.formClient.date}">Date:</label>
+            <input class="form-control" th:type="text" th:field="*{createDate}" th:errorclass="alert-danger">
+        </div>
+
+        <input th:type="submit" th:value="#{text.client.formClient.created}" class="btn btn-secondary">
+
+    </form>
+</div>
+    </div>
+</div>
+
+    <footer th:replace="layout/layout :: footer"/>
+
+</body>
+</html>

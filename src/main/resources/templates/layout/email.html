@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">CodeCouple Newsletter</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <style type="text/css">
+            h1 {font-size: 26px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
+            h3 {font-size: 12px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;}
+            p {font-size: 16px; color: #ffffff; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5;}
+            table { border: 1px solid #e4e4e4;}
+            a {color: #062b67; text-decoration: none; font-weight: bold;}
+        </style>
+    </head>
+    <body>
+        <table width="100%" cellpadding="0" cellspacing="0" bgcolor="319132">
+            <tr>
+                <td height="50" align="center"><p th:text="${header}">header</p></td>
+            </tr>
+            <tr bgcolor="ffffff">
+                <td height="100" align="center" ><h1 th:text="'Welcome '+ ${name}+ '. Aloes Gabinet Odnowy reminder about visit '
+                +${description} + ' on ' + ${dateVisit} + ' at '+ ${timeVisit} + '. See you letter.'">content</h1></td>
+            </tr>
+        </table>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead style="background:#319132;color: #ffffff">
+                        <tr></tr><th>Massage</th><th>Quantity</th><th>Price</th></tr>
+                    </thead>
+                    <tbody th:each="list:${massageDetails}">
+                        <tr>
+                            <td class=" text-align: center" th:text="${list.massage.name}"></td>
+                            <td class=" text-align: center" th:text="${list.quantity}"></td>
+                            <td class="text-align: center" th:text="${list.countPrice()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+              <table width="100%" cellpadding="0" cellspacing="0" bgcolor="319132">
+            <tr>
+                <td height="50" align="center"><p>Fallow us <a href="http://www.aloesowygabinet.pl/">Aloesowy-gabinet odnowy</a></p></td>
+            </tr>
+        </table>
+    </body>
+</html>

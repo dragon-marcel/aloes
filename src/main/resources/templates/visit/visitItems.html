@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<table th:fragment="visitItems" class="d-none">
+    <tbody id="visitItemss">
+    <tr id="row_{ID}">
+    <td ><input type="hidden" value="{ID}" name="item_id[]"/> </td>
+    <td>{NAME}</td>
+    <td>{PRICE}</td>
+    <td> <input type="number" name="quantity[]" id="quantity_{ID}" value="1" class="form-group" onchange="itemPrice.calculatorPrice({ID},{PRICE},this.value);"/> </td>
+        <td><span id="total_itemPrice_{ID}">0</span></td>
+        <td><a href="#" class="btn btn-danger btn-xs" onclick="itemPrice.deleteItem({ID});">X</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

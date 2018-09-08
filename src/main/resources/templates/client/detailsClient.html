@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container pt-5">
+</div>
+<div class="container pt-5">
+    <div class="card bg-light">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+            <div th:replace="layout/layout :: info"/>
+
+            <table class="table sticky-top">
+                <thead class="bg-success">
+                <tr>
+                    <th>ID</th>
+                    <th th:text="#{text.client.detailsClient.name}">Name</th>
+                    <th th:text="#{text.client.detailsClient.surname}">Surname</th>
+                    <th th:text="#{text.client.detailsClient.mail}">Email</th>
+                    <th th:text="#{text.client.detailsClient.telephon}">Number</th>
+                    <th th:text="#{text.client.detailsClient.date}">Date</th>
+                    <th th:text="#{text.client.detailsClient.newVisit}">New visit</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${clientDetails.id}"></td>
+                    <td th:text="${clientDetails.name}"></td>
+                    <td th:text="${clientDetails.surname}"></td>
+                    <td th:text="${clientDetails.email}"></td>
+                    <td th:text="${clientDetails.number}"></td>
+                    <td th:text="${clientDetails.createDate}"></td>
+                    <td><a th:href="@{/formVisit/} + ${clientDetails.id}" class="btn btn-success"
+                           th:text="#{text.client.detailsClient.Add}">ADD</a></td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="card-header">
+            <label th:text="#{text.client.detailsClient.visit}"/>
+        </div>
+        <div class="card-body">
+
+            <div class="alert alert-info" th:if="${#lists.isEmpty(clientDetails.visit) }"
+                 th:text="${clientDetails.name} +' '+ ${clientDetails.surname} + #{text.client.detailsClient.noVisit}">
+            </div>
+
+            <table th:if="${not #lists.isEmpty(clientDetails.visit)}" class="table table-hover sticky-top">
+                <thead class="bg-success">
+                <th>id</th>
+                <th th:text="#{text.client.detailsClient.description}">Description</th>
+                <th th:text="#{text.client.detailsClient.dateCreated}">Date</th>
+                <th th:text="#{text.client.detailsClient.totalPrice}">Total Price</th>
+                <th th:text="#{text.client.detailsClient.dateVisit}">Data</th>
+                <th th:text="#{text.client.detailsClient.timeVisit}">Time</th>
+                <th th:text="#{text.client.detailsClient.details}">Details</th>
+                <th th:text="#{text.client.detailsClient.delete}">Delete</th>
+                </thead>
+
+                <tbody th:each="visits:${clientDetails.visit}">
+                <tr>
+                    <td th:text="${visits.id}"></td>
+                    <th th:text="${visits.description}"></th>
+                    <td th:text="${visits.createDate}"></td>
+                    <td th:text="${visits.totalPrice}"></td>
+                    <td th:text="${visits.visitDate}"></td>
+                    <td th:text="${visits.visitTime}"></td>
+                    <td><a th:href="@{/visit/} + ${visits.id}" class="btn btn-info"
+                           th:text="#{text.client.detailsClient.details}">View</a>
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/visit/delete/} + ${visits.id}"
+                                                                 th:text="#{text.client.detailsClient.delete}"
+                                                                 class="btn btn-danger"
+                           onclick="return confirm('Are you sure delete ??');">X</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br>
+    <footer th:replace="layout/layout :: footer"/>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+           <label th:text="${title}"/>
+                <form class="form-inline my-2 my-lg-0 float-right">
+                    <input class="form-control mr-sm-2" th:name="search"  type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"th:text="#{text.client.search}">Search</button>
+                </form>
+
+      <div class="card-body">
+
+ <div th:replace="layout/layout :: info"/>
+<table class="table table-hover sticky-top">
+    <thead class="navbar-dark  bg-success">
+    <tr>
+        <th>Lp</th><th th:text="#{text.client.name}">Name</th>
+        <th th:text="#{text.client.surname}">Surname</th>
+        <th th:text="#{text.client.email}">Email</th>
+        <th th:text="#{text.client.edit}">Edit</th>
+        <th th:text="#{text.client.details}">Details</th>
+        <th th:text="#{text.client.delete}">Delete</th>
+    </tr>
+    </thead>
+    <tbody th:each="clientlist,lp:${clients}">
+<tr>
+    <td th:text="${lp.count}">1</td>
+    <td th:text="${clientlist.name}"></td>
+    <td th:text="${clientlist.surname}"></td>
+    <td th:text="${clientlist.email}"></td>
+
+    <td style="width:20px"><a th:href="@{formClient/} + ${clientlist.id}" class="btn btn-success"
+                              th:text="#{text.client.edit}">Edit</a>
+    </td>
+    <td style="width:20px"><a th:href="@{client/} + ${clientlist.id}" class="btn btn-info"
+                              th:text="#{text.client.details}">Details</a>
+    </td>
+    <td sec:authorize="hasAuthority('ADMIN')" style="width:20px">
+        <a th:href="@{client/delete/} + ${clientlist.id}" onclick="return confirm('Are sure delete??')"
+           class="btn btn-danger" th:text="#{text.client.delete}">Delete</a>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+        <!--FOOTER-->
+<footer th:replace="layout/layout :: footer"/>
+</body>
+</html>

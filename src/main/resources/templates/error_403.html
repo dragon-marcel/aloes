@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container py-4">
+    <div class="card bg-danger text-white">
+        <div class="card-header">
+            <label th:text="#{text.error_403.title}"/>
+        </div>
+        <div class="card-body">
+            <a th:href="@{/}" class="btn btn-outline-light" role="button"
+               th:text="#{text.error_403.goBack}">Go to Start Page!</a>
+        </div>
+    </div>
+</div>
+
+    <footer th:replace="layout/layout :: footer"/>
+
+</body>
+</html>

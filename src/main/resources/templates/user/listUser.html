@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container py-5">
+    <div class="card bg-light">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+
+            <div th:replace="layout/layout :: info"/>
+
+            <table class="table table-hover sticky-top">
+                <thead class="bg-success">
+                <tr>
+                    <th>ID</th><th th:text="#{text.user.name}">Name</th>
+                    <th th:text="#{text.user.role}">Role</th>
+                    <th th:text="#{text.user.delete}">Delete</th>
+                </tr>
+                </thead>
+                <tbody th:each="user:${users}">
+                <tr>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.userName}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td style="width:20px"><a th:href="@{/user/delete/} + ${user.id}" onclick="return confirm('are sure delete ??');" class="btn btn-danger">X</a> </td>
+               </tr>
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+
+    <footer th:replace="layout/layout :: footer"/>
+</div>
+</body>
+</html>

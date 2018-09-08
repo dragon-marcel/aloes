@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container py-4">
+
+    <div class="card border-primary text-center">
+
+        <!--INFO-->
+        <div th:replace="layout/layout :: info"/>
+
+        <div class="card-header">
+            Login:
+        </div>
+
+        <div class="card-body">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group col-sm-6">
+                    <input th:type="text" name="username" id="username" class="form-control"th:value="'Login'">
+                </div>
+                <div class="form-group col-sm-6">
+                    <input th:type="password" name="password" id="password" class="form-control"
+                    th:value="'Password'">
+                </div>
+                <div class="form-group col-sm-6">
+                    <input th:type="submit" th:value="#{text.login.login}"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+</footer>
+
+</body>
+</html>

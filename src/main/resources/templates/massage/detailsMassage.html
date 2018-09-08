@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container pt-5">
+
+    <div class="card bg-light">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+            <div th:replace="layout/layout :: info"/>
+
+            <table class="table sticky-top">
+                <thead class="bg-success">
+                <tr>
+                    <th>ID</th><th th:text="#{text.massage.name}">Name</th>
+                    <th th:text="#{text.massage.price}">Price</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${massage.id}"></td>
+                    <td th:text="${massage.name}"></td>
+                    <td th:text="${massage.price}"></td>
+                </tr>
+            </table>
+    </div>
+</div>
+
+    <footer th:replace="layout/layout :: footer"/>
+
+</div>
+</body>
+</html>

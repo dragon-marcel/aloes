@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"/>
+<header th:replace="layout/layout :: header"/>
+
+<body>
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+            <label th:text="${title}"/>
+        </div>
+        <div class="card-body">
+
+            <table class="table table-hover sticky-top">
+                <thead class="navbar-dark  bg-success">
+                <tr>
+                    <th>lp</th><th>Id</th><th th:text="#{text.visit.client}">Client</th>
+                    <th th:text="#{text.visit.dateCreated}">Data created</th>
+                    <th th:text="#{text.visit.description}">Description</th>
+                    <th th:text="#{text.visit.dateVisit}">Data visit</th>
+                    <th th:text="#{text.visit.timeVisit}">Time visit</th>
+                    <th th:text="#{text.visit.totalPrice}">Total price</th>
+                    <th th:text="#{text.visit.status}">Status</th>
+                    <th th:text="#{text.visit.details}">Details</th>
+                </tr>
+                </thead>
+
+                <tbody th:each="listvisit,lp:${openVisit}">
+                <tr>
+                    <td th:text="${lp.count}">1</td>
+                    <td th:text="${listvisit.id}"></td>
+                    <td><a th:href="@{/client/} + ${listvisit.client.id}" th:text="${listvisit.client.name} + ' ' +${listvisit.client.surname}"/></td>
+                    <td th:text="${listvisit.createDate}"></td>
+                    <td th:text="${listvisit.description}"></td>
+                    <td th:text="${listvisit.visitDate}"></td>
+                    <td th:text="${listvisit.visitTime}"></td>
+                    <td th:text="${listvisit.totalPrice}"></td>
+                    <td><img th:if="${listvisit.status == false}" style="width:20px" th:src="@{/image/xx.png}"/>
+                        <img th:if="${listvisit.status == true}" style="width:20px" th:src="@{/image/okk.png}"/></td>
+                    <td style="width:20px"><a th:href="@{/visit/} + ${listvisit.id}"
+                                              class="btn btn-info" th:text="#{text.visit.details}">Details</a> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br><br>
+
+    <footer th:replace="layout/layout :: footer"/>
+
+</div>
+</body>
+</html>
