@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container py-5">
     <div class="card">
         <div class="card-header">
@@ -13,13 +12,17 @@
         </div>
         <div class="card-body">
 
-
-
             <table class="table table-hover sticky-top">
                 <thead class="navbar-dark  bg-success">
                 <tr>
-                    <th>lp</th><th>Id</th><th>Client</th><th>Data created</th><th>Description</th>
-                    <th>Data visit</th><th>Time visit</th><th>Total price<th>Status</th><th>Details</th>
+                    <th>lp</th><th>Id</th><th th:text="#{text.visit.client}">Client</th>
+                    <th th:text="#{text.visit.dateCreated}">Data created</th>
+                    <th th:text="#{text.visit.description}">Description</th>
+                    <th th:text="#{text.visit.dateVisit}">Data visit</th>
+                    <th th:text="#{text.visit.timeVisit}">Time visit</th>
+                    <th th:text="#{text.visit.totalPrice}">Total price</th>
+                    <th th:text="#{text.visit.status}">Status</th>
+                    <th th:text="#{text.visit.details}">Details</th>
                 </tr>
                 </thead>
                 <tbody th:each="listvisit,lp:${list}">
@@ -35,16 +38,17 @@
                     <td th:text="${listvisit.totalPrice}"></td>
                     <td><img th:if="${listvisit.status == false}" style="width:20px" th:src="@{/image/xx.png}"/>
                     <img th:if="${listvisit.status == true}" style="width:20px" th:src="@{/image/okk.png}"/></td>
-                    <td style="width:20px"><a th:href="@{/visit/} + ${listvisit.id}" class="btn btn-info">Details</a> </td>
+                    <td style="width:20px"><a th:href="@{/visit/} + ${listvisit.id}"
+                                              class="btn btn-info" th:text="#{text.visit.details}">Details</a> </td>
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
     </div>
     <br><br>
-    <!--FOOTER-->
+
     <footer th:replace="layout/layout :: footer"/>
+
+</div>
 </body>
 </html>

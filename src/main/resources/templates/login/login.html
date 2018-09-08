@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container py-4">
 
     <div class="card border-primary text-center">
@@ -27,7 +26,7 @@
                     th:value="'Password'">
                 </div>
                 <div class="form-group col-sm-6">
-                    <input th:type="submit" th:value="'Login'"/>
+                    <input th:type="submit" th:value="#{text.login.login}"/>
                 </div>
             </form>
         </div>

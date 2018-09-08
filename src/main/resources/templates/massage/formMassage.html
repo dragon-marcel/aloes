@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container pt-5">
     <div class="card bg-success text-white">
         <div class="card-header">
@@ -17,23 +16,25 @@
                 <div class="form-group row">
                     <input th:type="hidden" th:field="*{id}">
 
-                    <label>Name:</label>
+                    <label th:text="#{text.massage.name}"/>
                     <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
                 </div>
 
                 <div class="form-group row">
-                    <label>Price:</label>
+                    <label th:text="#{text.massage.price}"/>
                     <input th:type="text" class="form-control" th:field="*{price}" th:errorclass="alert-danger">
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
                 </div>
 
-                <input th:type="submit" th:value="Create" class="btn btn-secondary">
+                <input th:type="submit" th:value="#{text.massage.formMassage.created}" class="btn btn-secondary">
             </form>
         </div>
 
     </div>
 </div>
+
 <footer th:replace="layout/layout :: footer"/>
+
 </body>
 </html>

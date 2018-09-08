@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"/>
-<body>
 
-<!--HEADER-->
+<head th:replace="layout/layout :: head"/>
 <header th:replace="layout/layout :: header"/>
 
-
-<!--CONTAINER-->
+<body>
 <div class="container pt-5">
     <div class="card bg-success text-white">
      <label th:text="${title}"/>
@@ -16,42 +13,41 @@
     <form th:action="@{/formClient}" th:object="${NewClient}"  method="post"  class="form-group">
         <input  type="hidden" th:field="*{id}">
         <div class="form-group row">
-            <label>Name:</label>
+            <label th:text="#{text.client.formClient.name}">Name:</label>
              <input th:type="text" class="form-control" th:field="*{name}" th:errorclass="alert-danger">
             <small class="text-form text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
         </div>
         <div class="form-group row">
-            <label>Surname:</label>
+            <label th:text="#{text.client.formClient.surname}">Surname:</label>
             <input th:type="text" class="form-control" th:field="*{surname}" th:errorclass="alert-danger" >
-            </label>
             <small class="text-form text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/>
         </div>
 
         <div class="form-group row">
-                <label>Mail:</label>
+                <label th:text="#{text.client.formClient.mail}">Mail:</label>
             <input class="form-control" th:type="text" th:field="*{email}" th:errorclass="alert-danger">
             <small class="text-form text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
         </div>
 
         <div class="form-group row">
-            <label>Number telephon:</label>
+            <label th:text="#{text.client.formClient.telephon}">Number telephon:</label>
             <input th:type="text" class="form-control" th:field="*{number}" th:errorclass="alert-danger" >
             <small class="text-form text-danger" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"/>
         </div>
 
         <div class="form-group row">
-            <label>Date:</label>
+            <label th:text="#{text.client.formClient.date}">Date:</label>
             <input class="form-control" th:type="text" th:field="*{createDate}" th:errorclass="alert-danger">
         </div>
 
-        <input th:type="submit" th:value="Create" class="btn btn-secondary">
+        <input th:type="submit" th:value="#{text.client.formClient.created}" class="btn btn-secondary">
 
     </form>
 </div>
     </div>
 </div>
 
-<!--FOOTER-->
-<footer th:replace="layout/layout :: footer"/>
+    <footer th:replace="layout/layout :: footer"/>
+
 </body>
 </html>

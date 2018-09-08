@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().antMatchers("/client/delete/**","/massage/delete/**",
                 "/users","/user/delete/**","visit/delete/**","/formUser").hasAnyAuthority("ADMIN")
-                .antMatchers("/css/**","/js/**").permitAll()
+                .antMatchers("/css/**","/js/**","/local").permitAll()
         .anyRequest().authenticated().
                 and().
                 formLogin().loginPage("/login").permitAll()

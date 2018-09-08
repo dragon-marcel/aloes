@@ -13,12 +13,14 @@ import java.util.List;
 
 @Controller
 public class IndexController {
+
     @Autowired
     VisitR visitR;
     @Autowired
     private TimeDate timeDate;
     @Autowired
     private TimeSession timeSession;
+
     @RequestMapping("/")
     public String index(Model model){
 
@@ -28,6 +30,7 @@ public class IndexController {
         model.addAttribute("title","Aloes Gabinet Odnowy");
         model.addAttribute("list",visitsToday);
         model.addAttribute("time",timeSession.getTime());
+
         return "index";
     }
 }

@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container pt-5">
-
     <div class="card bg-light">
         <div class="card-header">
            <label th:text="${title}"/>
         </div>
         <div class="card-body">
             <ul class="list-group my-2">
-                <li class="list-group-item" th:text="${'Open visits: ' + quantityVisitsOpen}"></li>
-                <li class="list-group-item" th:text="${'Close visits: ' + quantityVisitsClose}"></li>
-                <li class="list-group-item" th:text="${'All visits: ' + quantityVisits}"></li>
-                <li class="list-group-item" th:text="${'All clients: ' + quantityClient}"></li>
-                <li class="list-group-item" th:text="${'All users:' + quantityUser}"></li>
-                <li class="list-group-item" th:text="${'Total value: ' + quantityTotalValue + ' zł'}"></li>
-                <li class="list-group-item" th:text="${'Close visit value: ' + quantityCloseValue + ' zł'}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.openVisits}+ ${quantityVisitsOpen}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.closeVisits} +${ quantityVisitsClose}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.allVisits} + ${quantityVisits}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.allClients} + ${quantityClient}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.allUsers} + ${quantityUser}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.totalValue} +${ quantityTotalValue + ' zł'}"></li>
+                <li class="list-group-item" th:text="#{text.statistic.totalCloseVisits} + ${quantityCloseValue + ' zł'}"></li>
             </ul>
         </div>
     </div>
@@ -29,11 +27,11 @@
         <div class="card-header">
         </div>
         <div class="card-body">
-
+    </div>
     </div>
 
-</div>
-    <!--FOOTER-->
-    <footer th:replace="layout/layout :: footer"/>
+        <footer th:replace="layout/layout :: footer"/>
+
+    </div>
 </body>
 </html>

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head th:replace="layout/Layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/Layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container py-5">
     <div class="card">
         <div class="card-header">
@@ -18,7 +17,11 @@
             <table class="table table-hover sticky-top">
                 <thead class="navbar-dark  bg-success">
                 <tr>
-                    <th>lp</th><th>ID</th><th>Name</th><th>Price</th><th>Edit</th><th>Details</th><th>Delete</th>
+                    <th>lp</th><th>ID</th><th th:text="#{text.massage.name}">Name</th>
+                    <th th:text="#{text.massage.price}">Price</th>
+                    <th th:text="#{text.massage.edit}">Edit</th>
+                    <th th:text="#{text.massage.details}">Details</th>
+                    <th th:text="#{text.massage.delete}">Delete</th>
                 </tr>
                 </thead>
                 <tbody th:each="listMassage,lp:${massages}">
@@ -28,16 +31,24 @@
                     <td th:text="${listMassage.id}"></td>
                     <td th:text="${listMassage.name}"></td>
                     <td th:text="${listMassage.price}"></td>
-                    <td style="width:20px"><a th:href="@{/formMassage/} + ${listMassage.id}" class="btn btn-success">Edit</a></td>
-                    <td style="width:20px"><a th:href="@{/massage/} + ${listMassage.id}" class="btn btn-info">Details</a> </td>
-                    <td sec:authorize="hasAuthority('ADMIN')" style="width:20px"><a th:href="@{/massage/delete/} + ${listMassage.id}" onclick="return confirm('Are sure delete??')" class="btn btn-danger">Delete</a>    </td>
+                    <td style="width:20px"><a th:href="@{/formMassage/} + ${listMassage.id}"
+                                              class="btn btn-success"th:text="#{text.massage.edit}">Edit</a>
+                    </td>
+                    <td style="width:20px"><a th:href="@{/massage/} + ${listMassage.id}"
+                                              class="btn btn-info" th:text="#{text.massage.details}">Details</a>
+                    </td>
+                    <td sec:authorize="hasAuthority('ADMIN')" style="width:20px"><a th:href="@{/massage/delete/} +
+                    ${listMassage.id}" onclick="return confirm('Are sure delete??')"
+                    class="btn btn-danger" th:text="#{text.massage.delete}">Delete</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!--FOOTER-->
     <footer th:replace="layout/layout :: footer"/>
+
+</div>
 </body>
 </html>

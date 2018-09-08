@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
-<body>
-<!--HEADER-->
 <header th:replace="layout/layout :: header"/>
 
-<!--CONTAINER-->
+<body>
 <div class="container pt-5">
     <div class="card bg-light">
         <div class="card-header">
@@ -16,7 +15,7 @@
             <form th:action="@{/formUser}" th:object="${newUser}"  method="post"  class="form-group">
 
                 <div class="form-group row">
-                    <label>Name:</label>
+                    <label th:text="#{text.user.name}"/>
                     <input th:type="text" class="form-control" th:field="*{userName}" th:errorclass="alert-danger">
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"/>
                 </div>
@@ -28,18 +27,19 @@
                 </div>
 
                 <div class="form-group row">
-                <label>Role:  </label>
+                <label th:text="#{text.user.role}"/>
                     <input type="radio" th:text="'ADMIN'" th:field="*{role}" th:value="ADMIN">
                     <input type="radio" th:text="'USER'" th:field="*{role}" th:value="USER" ><br>
                     <small class="text-form text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"/>
                 </div>
 
-                <input th:type="submit" th:value="Create" class="btn btn-secondary">
+                <input th:type="submit" th:value="#{text.user.formUser.created}" class="btn btn-secondary">
             </form>
         </div>
     </div>
 </div>
 
 <footer th:replace="layout/layout :: footer"/>
+
 </body>
 </html>

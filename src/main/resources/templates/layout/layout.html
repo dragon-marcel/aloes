@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<!--HEADER-->
+
 <header th:fragment="header">
 <nav class="navbar navbar-expand-lg navbar-dark  bg-success">
     <a class="navbar-brand" href="/">ALOES - GABINET ODNOWY</a>
@@ -21,65 +21,71 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Client
+                   <label th:text="#{text.navbar.client}"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" th:href="@{/clients}">All clients</a>
-                    <a class="dropdown-item" th:href="@{/formClient}">New client</a>
+                    <a class="dropdown-item" th:href="@{/clients}" th:text="#{text.navbar.AllClients}">All clients</a>
+                    <a class="dropdown-item" th:href="@{/formClient}" th:text="#{text.navbar.newClient}">New client</a>
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Visit
+                   <label th:text="#{text.navbar.visit}"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" th:href="@{/visits}">All visits</a>
-                    <a class="dropdown-item" th:href="@{/visitsClose}">Close visits</a>
-                    <a class="dropdown-item" th:href="@{/visitsOpen}">Open visits</a>
+                    <a class="dropdown-item" th:href="@{/visits}" th:text="#{text.navbar.AllVisit}">All visits</a>
+                    <a class="dropdown-item" th:href="@{/visitsClose}" th:text="#{text.navbar.closeVisit}">Close visits</a>
+                    <a class="dropdown-item" th:href="@{/visitsOpen}" th:text="#{text.navbar.openVisit}">Open visits</a>
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Massage
+                    <label th:text="#{text.navbar.massage}"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" th:href="@{/massages}">All massage</a>
-                    <a class="dropdown-item" th:href="@{/formMassage}">New massage</a>
+                    <a class="dropdown-item" th:href="@{/massages}" th:text="#{text.navbar.allMassages}">All massage</a>
+                    <a class="dropdown-item" th:href="@{/formMassage}" th:text="#{text.navbar.newMassage}">New massage</a>
                     <div class="dropdown-divider"></div>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User
+         <label th:text="#{text.navbar.user}"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/users}">All users</a>
+                    <a class="dropdown-item" th:href="@{/users}" th:text="#{text.navbar.allUsers}">All users</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" th:href="@{/formUser}">New user</a>
+                    <a class="dropdown-item" th:href="@{/formUser}" th:text="#{text.navbar.newUser}">New user</a>
                 </div>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/statistic}">Statistic <span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/statistic}" th:text="#{text.navbar.statistic}">Statistic <span class="sr-only">(current)</span></a>
             </li>
 
 
         </ul>
+        <ul class="navbar-nav navbar - right mx-4">
+            <li class="nav-item mx-1"><a class="btn btn-outline-light" th:href="@{/local(lang=en_EN)}">EN</a>
+            </li>
+            <li class="nav-item mx-1"><a class="btn btn-outline-light"th:href="@{/local(lang=pl_PL)}">PL</a>
+            </li>
+        </ul>
         <div sec:authorize="isAuthenticated()">
         <form class="float-right" th:action="@{/logout}" method="post">
-            <input th:type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure logout??');" th:value="'logout'"/>
+            <input th:type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure logout??');" th:value="#{text.navbar.logout}"/>
         </form>
         </div>
-
+    </div>
 </nav>
 <!--JUUMBOTRON-->
     <div class="jumbotron jumbotron-fluid">

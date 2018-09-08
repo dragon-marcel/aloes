@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head"/>
 <header th:replace="layout/layout :: header"/>
-
 
 <body>
 <div class="container py-4">
@@ -10,13 +10,13 @@
         <div class="card-header" th:text="${title}">
         </div>
         <div class="card-title">
-        <a th:href="@{/client/}+${newVisit.client.id}" th:text="'   &laquo;   Previous'" class="pl-3"></a>
+        <a th:href="@{/client/}+${newVisit.client.id}" th:text="#{text.visit.detailsVisit.previous}" class="pl-3"></a>
         </div>
         <div class="card-body">
             <div th:replace="layout/layout :: info"/>
 
             <form th:action="@{/formVisit/}" th:object="${newVisit}" method="post">
-                <label class="col-sm-2 col-form-label">Client:</label>
+                <label class="col-sm-2 col-form-label" th:text="#{text.visit.formVisit.client}">Client:</label>
                 <input disabled="disabled" th:value="${newVisit.client.name} + ' ' + ${newVisit.client.surname}"
                        class="form-control">
                 <div class="col-sm-6">
@@ -25,34 +25,33 @@
                 </div>
                 <br>
                 <div class="form-group row">
-                    <label for="description" class="col-sm-2 col-form-label">Description:</label>
+                    <label for="description" class="col-sm-2 col-form-label"
+                           th:text="#{text.visit.formVisit.description}">Description:</label>
                 <div class="col-sm-6">
                 <input th:type="text" name="description" id="description" th:field="*{description}" th:errorclass="alert-danger" class="form-control"/>
 
                 </div>
                 </div>
                 <div class="form-group row">
-                    <label for="visitDate" class="col-sm-2 col-form-label">Data Visit:</label>
+                    <label for="visitDate" class="col-sm-2 col-form-label"
+                           th:text="#{text.visit.formVisit.dateVisit}">Data Visit:</label>
                     <div class="col-sm-6">
                         <input th:type="date" name="visitDate" id="visitDate" th:field="*{visitDate}"
                                th:errorclass="alert-danger" class="form-control"/>
-
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="visitTime" class="col-sm-2 col-form-label">Time Visit:</label>
+                    <label for="visitTime" class="col-sm-2 col-form-label"
+                           th:text="#{text.visit.formVisit.timeVisit}">Time Visit:</label>
                     <div class="col-sm-6">
                         <input th:type="time" name="visitTime" id="visitTime" th:field="*{visitTime}"
                                th:errorclass="alert-danger" class="form-control"/>
-
-
                     </div>
                 </div>
-
-
                         <br>
                 <div class="form-group row">
-                    <label for="search-massage" class="col-sm-2 col-form-label">Search massage:</label>
+                    <label for="search-massage" class="col-sm-2 col-form-label"
+                           th:text="#{text.visit.formVisit.searchMassage}">Search massage:</label>
                     <div class="col-sm-6">
                         <input th:type="text" name="search-massage" id="search-massage" class="form-control"/>
                     </div>
@@ -60,36 +59,32 @@
                 <table th:replace="visit/visitItems :: visitItems"/>
                 <table id="ItemsVisit" class="table table-striped table-hover">
                 <thead>
-                <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Delete</th>
-                </tr>
+                    <tr>
+                        <th th:text="#{text.visit.formVisit.name}">Name</th>
+                        <th th:text="#{text.visit.formVisit.price}">Price</th>
+                        <th th:text="#{text.visit.formVisit.quantity}">Quantity</th>
+                        <th th:text="#{text.visit.formVisit.total}">Total</th>
+                        <th th:text="#{text.visit.formVisit.delete}">Delete</th>
+                    </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
                 </table>
                 <h5>
-                    Total price:
+                   <label th:text="#{text.visit.formVisit.totalPrice}"/>
                     <span class="badge badge-secondary" id="totalPrice">0</span>
                 </h5>
-
-                <div class="form-group-row">
-                    <div class="col-sm-6">
-                <button th:type="submit" class="btn btn-success">new Visit</button>
-</div>
-</div>
-
-</form>
-</div>
-
-</div>
+                <button th:type="submit" class="btn btn-success float-right"
+                        th:text="#{text.visit.formVisit.newVisit}">New visit</button>
+            </form>
+        </div>
+    </div>
 <br>
+
 <footer th:replace="layout/layout :: footer"/>
 <script th:replace="visit/js/search-massage :: javascript"></script>
+
+</div>
 </body>
 </html>

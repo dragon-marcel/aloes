@@ -27,7 +27,7 @@ public class Client implements Serializable {
     private String email;
 
     @NotEmpty
-    @Pattern(regexp = "[1-9]{3}-[1-9]{3}-[1-9]{3}",message = "Format(xxx-xxx-xxx)")
+    @Pattern(regexp = "[1-9]{3}-[1-9]{3}-[1-9]{3}")
     private String number;
 
     @Temporal(TemporalType.DATE)

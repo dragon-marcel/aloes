@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
 <table th:fragment="visitItems" class="d-none">
     <tbody id="visitItemss">
     <tr id="row_{ID}">
-
     <td ><input type="hidden" value="{ID}" name="item_id[]"/> </td>
     <td>{NAME}</td>
     <td>{PRICE}</td>
