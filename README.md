@@ -1,5 +1,5 @@
 # aloes
-Aloes - gabinet odnowy
+Aloes - gabinet odnowy - z możliwośćią zmiany języka aplikacji( PL , EN)
 
 
 # (ADMIN) Login:admin ,password:admin;
