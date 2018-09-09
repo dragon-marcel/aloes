@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="alo" />
+        <module name="aloessas" />
         <module name="Client" />
         <module name="nowyaloes" />
       </profile>
